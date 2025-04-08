@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import cartReducer from './cartSlice';  // Importiamo il reducer per il carrello
+import cartReducer from './cartSlice'; // Assicurati che il percorso sia corretto
 
-// Configuriamo lo store Redux
-export const store = configureStore({
+const store = configureStore({
   reducer: {
-    cart: cartReducer,  // Definiamo il nostro reducer per il carrello
+    cart: cartReducer, // Aggiungi il reducer per il carrello
   },
 });
+
+export {store};
