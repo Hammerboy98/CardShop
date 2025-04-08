@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
-import MyFooter from "./MyFooter";
 import { getAllCards } from "../api/cards";
 import { addToCart } from "../redux/cartSlice";
 
@@ -75,8 +74,6 @@ const MyHome = () => {
           ))}
         </div>
       </div>
-
-      <MyFooter />
     </div>
   );
 };
