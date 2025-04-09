@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { getAllCards } from "../api/cards";
 import { addToCart } from "../redux/cartSlice";
 import { FaShoppingCart } from "react-icons/fa";
+import { Link } from "react-router-dom"; // Per la navigazione tra le pagine
 
 const MyHome = () => {
   const [cards, setCards] = useState([]);
@@ -14,7 +15,8 @@ const MyHome = () => {
     const fetchCards = async () => {
       try {
         const data = await getAllCards();
-        setCards(data.slice(20, 29)); // Solo le prime 9 carte
+        const displayedCards = data.slice(20, 29); // Mostra solo le prime 9 carte
+        setCards(displayedCards);
       } catch (error) {
         console.error("Error fetching cards:", error);
       }
@@ -29,9 +31,9 @@ const MyHome = () => {
   };
 
   const handleAddToCart = (card) => {
-    const quantity = quantities[card.id] || 1; // Usa la quantità selezionata, default a 1 se non selezionata
-    const cardWithQuantity = { ...card, quantity }; // Aggiungiamo la quantità all'oggetto carta
-    dispatch(addToCart(cardWithQuantity)); // Dispatchiamo l'azione con la quantità
+    const quantity = quantities[card.id] || 1;
+    const cardWithQuantity = { ...card, quantity };
+    dispatch(addToCart(cardWithQuantity));
   };
 
   return (
@@ -40,7 +42,7 @@ const MyHome = () => {
       <div className="text-white text-center p-5 bg-dark">
         <h1 className="fw-bold">Welcome To CardShop</h1>
         <p
-          style={{ maxWidth: "350px", margin: "0 auto" }}
+          style={{ maxWidth: "450px", margin: "0 auto" }}
           className="fw-bolder"
         >
           Your ultimate destination for collectible trading cards! Whether
@@ -49,8 +51,54 @@ const MyHome = () => {
           discover, and build your dream collection—right here.
         </p>
         <a href="/cards" className="btn btn-primary mt-3 rounded-0 fw-bold">
-          Browse Our Card Collection
+          Browse Our Complete Card Collection
         </a>
+      </div>
+
+      {/* Filtro per gioco */}
+      <div className="container mt-5 text-center">
+        <h2 className="text-white mb-4 fw-bold">Filter By Expansion</h2>
+        <div className="d-flex justify-content-center gap-3">
+          <div
+            className="card bg-dark text-white border-0 mx-5"
+            style={{ cursor: "pointer", width: "200px" }}
+          >
+            <Link
+              to="/pokemon" // Link alla pagina delle carte Pokémon
+              className="text-decoration-none text-white"
+            >
+              <img
+                src="https://clazo-pokemon.netlify.app/static/media/portadapokemon.5b8a5f11.png" // Immagine Pokémon
+                alt="Pokémon"
+                className="card-img-top"
+                style={{ height: "175px", width: "100%" }}
+              />
+              <div className="card-body text-center">
+                <h5 className="card-title">Pokémon</h5>
+              </div>
+            </Link>
+          </div>
+
+          <div
+            className="card bg-dark text-white border-0 mx-5"
+            style={{ cursor: "pointer", width: "200px" }}
+          >
+            <Link
+              to="/magic" // Link alla pagina delle carte Magic
+              className="text-decoration-none text-white"
+            >
+              <img
+                src="https://www.nextplayer.it/wp-content/uploads/2025/02/magicthegathering.jpeg" // Immagine Magic
+                alt="Magic"
+                className="card-img-top"
+                style={{ height: "150px", width: "100%" }}
+              />
+              <div className="card-body text-center">
+                <h5 className="card-title">Magic: The Gathering</h5>
+              </div>
+            </Link>
+          </div>
+        </div>
       </div>
 
       {/* Featured Cards section */}
@@ -59,29 +107,36 @@ const MyHome = () => {
         <div className="row justify-content-center">
           {cards.map((card) => (
             <div className="col-md-4 mb-4" key={card.id}>
-              <div className="card border-0">
+              <div style={{ width: "300px" }} className="card border-0 mx-5">
                 <img
                   src={card.imageUrl}
                   className="card-img-top"
                   alt={card.name}
-                  style={{ width: "100%", height: "500px" }}
+                  style={{ width: "100%", height: "400px" }}
                 />
                 <div className="card-body text-center bg-dark">
                   <h5 className="card-title text-info fw-bold">{card.name}</h5>
                   <p className="card-text text-white fw-bold">
                     {card.expansion} - €{card.price}
                   </p>
-                  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      gap: "10px",
+                    }}
+                  >
                     <input
                       type="number"
                       min="1"
                       value={quantities[card.id] || 1} // Usa il valore della quantità o 1 come default
                       style={{
-                        width: '50px',
-                        padding: '5px',
-                        textAlign: 'center',
-                        border: '1px solid #ddd',
-                        borderRadius: '5px',
+                        width: "50px",
+                        padding: "5px",
+                        textAlign: "center",
+                        border: "1px solid #ddd",
+                        borderRadius: "5px",
                       }}
                       onChange={(e) => handleQuantityChange(e, card)} // Funzione per aggiornare la quantità
                     />
@@ -104,4 +159,6 @@ const MyHome = () => {
 };
 
 export default MyHome;
+
+
 

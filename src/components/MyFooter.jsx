@@ -3,107 +3,110 @@ import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin, FaYoutube, FaShippingFa
 
 const MyFooter = () => {
   return (
-    <footer className="bg-dark text-white mt-5 pt-5 pb-3">
+    <footer className="bg-gradient-to-r from-darkblue-500 to-black text-white mt-5 pt-5 pb-3">
       <div className="container">
         <div className="row text-center">
           {/* Colonna per i link ai social media */}
-          <div className="col-md-4">
-            <h5 className="fw-bold">Follow Us</h5>
-            <ul className="list-unstyled d-flex flex-column align-items-center">
+          <div className="col-md-4 mb-4 mb-md-0">
+            <h5 className="fw-bold mb-3">Follow Us</h5>
+            <ul className="list-unstyled">
               <li>
-                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none">
-                  <FaFacebook className="me-2" /> Facebook
+                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none mb-2 hover-effect">
+                  <FaFacebook className="me-2" style={{ fontSize: '1.5em' }} /> Facebook
                 </a>
               </li>
               <li>
-                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none">
-                  <FaInstagram className="me-2" /> Instagram
+                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none mb-2 hover-effect">
+                  <FaInstagram className="me-2" style={{ fontSize: '1.5em' }} /> Instagram
                 </a>
               </li>
               <li>
-                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none">
-                  <FaTwitter className="me-2" /> Twitter
+                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none mb-2 hover-effect">
+                  <FaTwitter className="me-2" style={{ fontSize: '1.5em' }} /> Twitter
                 </a>
               </li>
               <li>
-                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none">
-                  <FaLinkedin className="me-2" /> LinkedIn
+                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none mb-2 hover-effect">
+                  <FaLinkedin className="me-2" style={{ fontSize: '1.5em' }} /> LinkedIn
                 </a>
               </li>
               <li>
-                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none">
-                  <FaYoutube className="me-2" /> YouTube
+                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none mb-2 hover-effect">
+                  <FaYoutube className="me-2" style={{ fontSize: '1.5em' }} /> YouTube
                 </a>
               </li>
             </ul>
           </div>
 
           {/* Colonna per altre informazioni */}
-          <div className="col-md-4">
-            <h5 className="fw-bold">Customer Service</h5>
-            <ul className="list-unstyled d-flex flex-column align-items-center">
+          <div className="col-md-4 mb-4 mb-md-0">
+            <h5 className="fw-bold mb-3">Customer Service</h5>
+            <ul className="list-unstyled">
               <li>
-                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none">
-                  <FaUndoAlt className="me-2" /> Returns
+                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none mb-2 hover-effect">
+                  <FaUndoAlt className="me-2" style={{ fontSize: '1.5em' }} /> Returns
                 </a>
               </li>
               <li>
-                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none">
-                  <FaShippingFast className="me-2" /> Shipping
+                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none mb-2 hover-effect">
+                  <FaShippingFast className="me-2" style={{ fontSize: '1.5em' }} /> Shipping
                 </a>
               </li>
               <li>
-                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none">
-                  <FaBoxOpen className="me-2" /> Packaging
+                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none mb-2 hover-effect">
+                  <FaBoxOpen className="me-2" style={{ fontSize: '1.5em' }} /> Packaging
                 </a>
               </li>
               <li>
-                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none">
-                  <FaQuestionCircle className="me-2" /> FAQs
+                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none mb-2 hover-effect">
+                  <FaQuestionCircle className="me-2" style={{ fontSize: '1.5em' }} /> FAQs
                 </a>
               </li>
               <li>
-                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none">
-                  <FaFileAlt className="me-2" /> Terms & Conditions
+                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none mb-2 hover-effect">
+                  <FaFileAlt className="me-2" style={{ fontSize: '1.5em' }} /> Terms & Conditions
                 </a>
               </li>
             </ul>
           </div>
 
           {/* Colonna per altre info come "About" */}
-          <div className="col-md-4">
-            <h5 className="fw-bold">About Us</h5>
-            <ul className="list-unstyled d-flex flex-column align-items-center">
+          <div className="col-md-4 mb-4 mb-md-0">
+            <h5 className="fw-bold mb-3">About Us</h5>
+            <ul className="list-unstyled">
               <li>
-                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none">
-                  <FaStoreAlt className="me-2" /> Our Story
+                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none mb-2 hover-effect">
+                  <FaStoreAlt className="me-2" style={{ fontSize: '1.5em' }} /> Our Story
                 </a>
               </li>
               <li>
-                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none">
-                  <FaUserAlt className="me-2" /> Careers
+                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none mb-2 hover-effect">
+                  <FaUserAlt className="me-2" style={{ fontSize: '1.5em' }} /> Careers
                 </a>
               </li>
               <li>
-                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none">
-                  <FaUserAlt className="me-2" /> Contact Us
+                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none mb-2 hover-effect">
+                  <FaUserAlt className="me-2" style={{ fontSize: '1.5em' }} /> Contact Us
                 </a>
               </li>
               <li>
-                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none">
-                  <FaFileAlt className="me-2" /> Privacy Policy
+                <a href="javascript:void(0)" className="text-white d-flex align-items-center text-decoration-none mb-2 hover-effect">
+                  <FaFileAlt className="me-2" style={{ fontSize: '1.5em' }} /> Privacy Policy
                 </a>
               </li>
             </ul>
           </div>
         </div>
-      </div>
 
-      <div className="text-center pt-3">
-        <p className="mb-0">© 2025 CardShop. All rights reserved.</p>
+        <hr className="my-4" style={{ borderColor: '#ddd' }} />
+
+        <div className="text-center pt-3">
+          <p className="mb-0">© 2025 CardShop. All rights reserved.</p>
+        </div>
       </div>
     </footer>
   );
 };
 
 export default MyFooter;
+
