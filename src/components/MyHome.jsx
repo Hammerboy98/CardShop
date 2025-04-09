@@ -55,7 +55,7 @@ const MyHome = () => {
                   src={card.imageUrl}
                   className="card-img-top"
                   alt={card.name}
-                  style={{ width: "100%", height: "auto" }}
+                  style={{ width: "100%", height: "500px" }}
                 />
                 <div className="card-body text-center bg-primary">
                   <h5 className="card-title fw-bold">{card.name}</h5>
