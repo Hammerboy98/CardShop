@@ -29,11 +29,11 @@ const MyNavbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-primary">
+    <nav className="navbar navbar-expand-lg navbar-light bg-primary sticky-top">
       <div className="container-fluid">
         {/* Logo che riporta alla home */}
         <Link className="navbar-brand" to="/">
-          CardShop
+          <img style={{width:'50px',borderRadius:'50%'}} src="ba12de09-d12f-435d-a160-12e233476836.png"></img>
         </Link>
 
         {/* Bottone per la visualizzazione del menu mobile */}

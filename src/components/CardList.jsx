@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FaShoppingCart } from "react-icons/fa";
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/cartSlice';
 import { getAllCards } from '../api/cards';
@@ -6,6 +7,7 @@ import { useLocation } from 'react-router-dom'; // Per leggere i query param
 
 const CardList = () => {
   const [cards, setCards] = useState([]);
+  const [quantities, setQuantities] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
@@ -15,6 +17,18 @@ const CardList = () => {
   const queryParams = new URLSearchParams(location.search);
   const nameFilter = queryParams.get("name")?.toLowerCase() || "";
   const expansionFilter = queryParams.get("expansion")?.toLowerCase() || "";
+
+  // Funzione per aggiornare la quantità
+  const handleQuantityChange = (e, card) => {
+    const updatedQuantities = { ...quantities, [card.id]: e.target.value };
+    setQuantities(updatedQuantities);
+  };
+
+  // Funzione per aggiungere il prodotto al carrello
+  const handleAddToCart = (card) => {
+    const quantity = quantities[card.id] || 1; // Usa la quantità selezionata, default a 1
+    dispatch(addToCart({ ...card, quantity }));
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -37,10 +51,6 @@ const CardList = () => {
       });
   }, [nameFilter, expansionFilter]);
 
-  const handleAddToCart = (card) => {
-    dispatch(addToCart(card));
-  };
-
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
@@ -52,16 +62,33 @@ const CardList = () => {
           cards.map((card) => (
             <div key={card.id} style={{ padding: '10px', width: '200px' }}>
               <img src={card.imageUrl} alt={card.name} style={{ width: '100%', height: '250px' }} />
-              <h3 className="fw-bold text-center text-primary">{card.name}</h3>
-              <p  className="fw-bold text-center text-white">Expansion: {card.expansion}</p>
+              <h6 className="fw-bolder text-center text-primary">{card.name}</h6>
+              <h6 className="fw-bold text-center text-white">Expansion: {card.expansion}</h6>
               <p className="fw-bold text-center text-white">Rarity: {card.rarity}</p>
               <p className="fw-bold text-center text-white">Price: €{card.price}</p>
-              <button
-                className="btn btn-warning rounded-0 mx-4 p-1 fw-bold w-75"
-                onClick={() => handleAddToCart(card)}
-              >
-                Add To Cart
-              </button>
+
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
+                <input
+                  type="number"
+                  min="1"
+                  defaultValue="1"
+                  style={{
+                    width: '50px',
+                    padding: '5px',
+                    textAlign: 'center',
+                    border: '1px solid #ddd',
+                    borderRadius: '5px',
+                  }}
+                  onChange={(e) => handleQuantityChange(e, card)} // Funzione per aggiornare la quantità
+                />
+                <button
+                  className="btn btn-warning rounded-0 p-1 fw-bold"
+                  style={{ width: '50px', padding: '10px' }}
+                  onClick={() => handleAddToCart(card)} // Usa la funzione già definita
+                >
+                  <FaShoppingCart />
+                </button>
+              </div>
             </div>
           ))
         ) : (
@@ -73,3 +100,4 @@ const CardList = () => {
 };
 
 export default CardList;
+

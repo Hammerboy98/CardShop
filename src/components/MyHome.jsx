@@ -3,16 +3,18 @@ import { useDispatch } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { getAllCards } from "../api/cards";
 import { addToCart } from "../redux/cartSlice";
+import { FaShoppingCart } from "react-icons/fa";
 
 const MyHome = () => {
   const [cards, setCards] = useState([]);
+  const [quantities, setQuantities] = useState({});
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchCards = async () => {
       try {
         const data = await getAllCards();
-        setCards(data.slice(0, 9)); // Solo le prime 9 carte
+        setCards(data.slice(20, 29)); // Solo le prime 9 carte
       } catch (error) {
         console.error("Error fetching cards:", error);
       }
@@ -21,8 +23,15 @@ const MyHome = () => {
     fetchCards();
   }, []);
 
+  const handleQuantityChange = (e, card) => {
+    const updatedQuantities = { ...quantities, [card.id]: e.target.value };
+    setQuantities(updatedQuantities);
+  };
+
   const handleAddToCart = (card) => {
-    dispatch(addToCart(card));
+    const quantity = quantities[card.id] || 1; // Usa la quantità selezionata, default a 1 se non selezionata
+    const cardWithQuantity = { ...card, quantity }; // Aggiungiamo la quantità all'oggetto carta
+    dispatch(addToCart(cardWithQuantity)); // Dispatchiamo l'azione con la quantità
   };
 
   return (
@@ -57,17 +66,33 @@ const MyHome = () => {
                   alt={card.name}
                   style={{ width: "100%", height: "500px" }}
                 />
-                <div className="card-body text-center bg-primary">
-                  <h5 className="card-title fw-bold">{card.name}</h5>
-                  <p className="card-text fw-bold">
+                <div className="card-body text-center bg-dark">
+                  <h5 className="card-title text-info fw-bold">{card.name}</h5>
+                  <p className="card-text text-white fw-bold">
                     {card.expansion} - €{card.price}
                   </p>
-                  <button
-                    className="btn btn-outline-dark fw-bold"
-                    onClick={() => handleAddToCart(card)}
-                  >
-                    Add To Cart
-                  </button>
+                  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
+                    <input
+                      type="number"
+                      min="1"
+                      value={quantities[card.id] || 1} // Usa il valore della quantità o 1 come default
+                      style={{
+                        width: '50px',
+                        padding: '5px',
+                        textAlign: 'center',
+                        border: '1px solid #ddd',
+                        borderRadius: '5px',
+                      }}
+                      onChange={(e) => handleQuantityChange(e, card)} // Funzione per aggiornare la quantità
+                    />
+                    <button
+                      className="btn btn-warning rounded-0 p-1 fw-bold"
+                      style={{ width: "50px", padding: "10px" }}
+                      onClick={() => handleAddToCart(card)} // Usa la funzione già definita
+                    >
+                      <FaShoppingCart />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -79,6 +104,4 @@ const MyHome = () => {
 };
 
 export default MyHome;
-
-
 
