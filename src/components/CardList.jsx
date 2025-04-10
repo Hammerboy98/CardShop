@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/cartSlice';
 import { getAllCards } from '../api/cards';
 import { useLocation } from 'react-router-dom'; // Per leggere i query param
+import { Link } from 'react-router-dom';
 
 const CardList = () => {
   const [cards, setCards] = useState([]);
@@ -61,7 +62,9 @@ const CardList = () => {
         {cards.length > 0 ? (
           cards.map((card) => (
             <div key={card.id} style={{ padding: '10px', width: '200px' }}>
+              <Link to={`/card/${card.id}`}>
               <img src={card.imageUrl} alt={card.name} style={{ width: '100%', height: '250px' }} />
+              </Link>
               <h6 className="fw-bolder text-center text-primary">{card.name}</h6>
               <h6 className="fw-bold text-center text-white">Expansion: {card.expansion}</h6>
               <p className="fw-bold text-center text-white">Rarity: {card.rarity}</p>
@@ -92,7 +95,7 @@ const CardList = () => {
             </div>
           ))
         ) : (
-          <p className="text-white mx-4">No cards found with current filters.</p>
+          <p className="text-white fw-bold mx-1">No cards found with current filters.</p>
         )}
       </div>
     </div>

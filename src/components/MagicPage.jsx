@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { getAllCards } from "../api/cards";
 import { addToCart } from "../redux/cartSlice"; // Assicurati che il cartSlice sia correttamente configurato
 import { FaShoppingCart } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const MagicPage = () => {
   const [cards, setCards] = useState([]);
@@ -42,12 +43,14 @@ const MagicPage = () => {
             cards.map((card) => (
               <div className="col-md-4 mb-4" key={card.id}>
                 <div style={{ width: "300px" }} className="card border-0 mx-5">
+                <Link to={`/card/${card.id}`}>
                   <img
                     src={card.imageUrl}
                     className="card-img-top"
                     alt={card.name}
                     style={{ width: "100%", height: "400px" }}
                   />
+                  </Link>
                   <div className="card-body text-center bg-dark">
                     <h5 className="card-title text-info fw-bold">{card.name}</h5>
                     <p className="card-text text-white fw-bold">

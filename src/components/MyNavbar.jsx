@@ -3,6 +3,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom"; // Importiamo Link da react-router-dom
 import { useNavigate } from "react-router-dom";
+import MyImage from "../assets/MyImage.png"
 
 const MyNavbar = () => {
   // Ottieni il numero di articoli nel carrello dallo stato Redux
@@ -33,7 +34,7 @@ const MyNavbar = () => {
       <div className="container-fluid">
         {/* Logo che riporta alla home */}
         <Link className="navbar-brand" to="/">
-          <img style={{width:'50px',borderRadius:'50%'}} src="ba12de09-d12f-435d-a160-12e233476836.png"></img>
+          <img style={{width:'50px',borderRadius:'50%'}} src={MyImage}></img>
         </Link>
 
         {/* Bottone per la visualizzazione del menu mobile */}

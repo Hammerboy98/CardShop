@@ -88,13 +88,13 @@ const MyHome = () => {
               className="text-decoration-none text-white"
             >
               <img
-                src="https://www.nextplayer.it/wp-content/uploads/2025/02/magicthegathering.jpeg" // Immagine Magic
+                src="https://carrettodicarta.it/wp-content/uploads/2024/07/Magic-The-Gathering-Logo.png" // Immagine Magic
                 alt="Magic"
                 className="card-img-top"
                 style={{ height: "150px", width: "100%" }}
               />
               <div className="card-body text-center">
-                <h5 className="card-title">Magic: The Gathering</h5>
+                <h5 className="card-title text-center">Magic: The Gathering</h5>
               </div>
             </Link>
           </div>
@@ -108,12 +108,14 @@ const MyHome = () => {
           {cards.map((card) => (
             <div className="col-md-4 mb-4" key={card.id}>
               <div style={{ width: "300px" }} className="card border-0 mx-5">
+              <Link to={`/card/${card.id}`}>
                 <img
                   src={card.imageUrl}
                   className="card-img-top"
                   alt={card.name}
                   style={{ width: "100%", height: "400px" }}
                 />
+                </Link>
                 <div className="card-body text-center bg-dark">
                   <h5 className="card-title text-info fw-bold">{card.name}</h5>
                   <p className="card-text text-white fw-bold">

@@ -50,7 +50,7 @@ const Cart = () => {
                 <img
                   src={card.imageUrl}
                   alt={card.name}
-                  style={{ width: "100px" }}
+                  style={{ width: "150px" }}
                 />
               </div>
               <div className="text-white fw-bold">

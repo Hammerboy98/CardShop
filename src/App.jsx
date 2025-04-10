@@ -9,6 +9,7 @@ import AboutUs from "./components/AboutUs";
 import ContactUs from "./components/ContactUs";
 import MagicPage from "./components/MagicPage"; // Importa la nuova pagina Magic
 import PokemonPage from "./components/PokemonPage"; // Importa la nuova pagina Pokémon
+import CardDetail from "./components/CardDetail";
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
           <Route path="/contact" element={<ContactUs />} /> {/* Pagina Contact Us */}
           <Route path="/magic" element={<MagicPage />} /> {/* Pagina Magic */}
           <Route path="/pokemon" element={<PokemonPage />} /> {/* Pagina Pokémon */}
+          <Route path="/card/:id" element={<CardDetail />} />
+
         </Routes>
         <MyFooter /> {/* Footer visibile su tutte le pagine */}
       </div>
