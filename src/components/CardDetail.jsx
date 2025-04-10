@@ -63,7 +63,7 @@ const CardDetail = () => {
                   value={quantity}
                   onChange={(e) => setQuantity(Number(e.target.value))}
                   className="form-control text-center"
-                  style={{ width: "70px" }}
+                  style={{ width: "70px" ,borderRadius:"15px"}}
                 />
                 <button
                   onClick={handleAddToCart}

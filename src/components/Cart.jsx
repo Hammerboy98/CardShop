@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart, updateQuantity, clearCart } from "../redux/cartSlice";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.items);
+  const [hoveredCard, setHoveredCard] = useState(null); // Stato per tracciare l'immagine sotto il mouse
 
   const handleRemoveFromCart = (cardId) => {
     const existingCard = cart.find(item => item.id === cardId);
@@ -32,6 +34,15 @@ const Cart = () => {
     dispatch(clearCart());
   };
 
+  // Funzioni per l'hover
+  const handleMouseEnter = (id) => {
+    setHoveredCard(id);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredCard(null);
+  };
+
   return (
     <div className="container">
       <h2 className="text-white mt-4 fw-bold">Your Cart</h2>
@@ -47,13 +58,24 @@ const Cart = () => {
               className="list-group-item d-flex justify-content-between align-items-center bg-dark"
             >
               <div className="mx-1">
-                <img
-                  src={card.imageUrl}
-                  alt={card.name}
-                  style={{ width: "150px" }}
-                />
+                <Link to={`/card/${card.id}`}>
+                  <div
+                    onMouseEnter={() => handleMouseEnter(card.id)} // Mouse sopra
+                    onMouseLeave={handleMouseLeave} // Mouse fuori
+                    style={{
+                      transition: "transform 0.3s ease", // Transizione per l'effetto
+                      transform: hoveredCard === card.id ? "scale(1.1)" : "scale(1)", // Ingrandimento
+                    }}
+                  >
+                    <img
+                      src={card.imageUrl}
+                      alt={card.name}
+                      style={{ width: "150px" }}
+                    />
+                  </div>
+                </Link>
               </div>
-              <div className="text-white fw-bold">
+              <div className="text-info fw-bold">
                 {card.name} - €{card.price}
               </div>
               <div className="d-flex align-items-center">
@@ -65,12 +87,12 @@ const Cart = () => {
                   style={{
                     width: "50px",
                     textAlign: "center",
-                    borderRadius: "5px",
+                    borderRadius: "15px",
                     marginRight: "10px",
                   }}
                 />
                 <button
-                  className="btn btn-danger btn-sm rounded-0"
+                  className="btn btn-danger btn-sm rounded-2"
                   onClick={() => handleRemoveFromCart(card.id)}
                 >
                   Remove
@@ -84,7 +106,7 @@ const Cart = () => {
       {cart.length > 0 && (
         <div className="d-flex justify-content-center align-items-center flex-column mt-4">
           <div className="text-white fw-bold">
-            <h4>Total: €{calculateTotal()}</h4>
+            <h4 className="fw-bold text-danger">Total: €{calculateTotal()}</h4>
           </div>
           <button
             className="btn btn-success mt-3"
@@ -93,14 +115,21 @@ const Cart = () => {
             Place Order
           </button>
         </div>
+        
       )}
-
+      <a href="/cards" className="btn btn-link mt-4 text-decoration-none text-center text-white fw-bold">
+            ← Back to Cards Collection
+          </a>
+          <a href="/" className="btn btn-link mt-4 text-decoration-none text-center text-white fw-bold">
+            ← Back Home
+          </a>
       <div style={{ height: "180px" }}></div>
     </div>
   );
 };
 
 export default Cart;
+
 
 
 

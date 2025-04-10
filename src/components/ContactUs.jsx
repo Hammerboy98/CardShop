@@ -23,7 +23,12 @@ const ContactUs = () => {
         <strong>Address:</strong> 123 CardShop St., CardCity, CollectibleLand
       </p>
       <div style={{height:"170px"}}>
-
+      <a href="/cards" className="btn btn-link mt-4 text-decoration-none text-white fw-bold">
+            ← Torna alla collezione
+          </a>
+          <a href="/" className="btn btn-link mt-4 text-decoration-none text-white fw-bold">
+            ← Torna alla home
+          </a>
       </div>
     </div>
     

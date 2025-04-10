@@ -9,6 +9,7 @@ import { Link } from "react-router-dom"; // Per la navigazione tra le pagine
 const MyHome = () => {
   const [cards, setCards] = useState([]);
   const [quantities, setQuantities] = useState({});
+  const [hoveredCard, setHoveredCard] = useState(null); // Stato per il mouse hover
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,6 +35,15 @@ const MyHome = () => {
     const quantity = quantities[card.id] || 1;
     const cardWithQuantity = { ...card, quantity };
     dispatch(addToCart(cardWithQuantity));
+  };
+
+  // Funzione per gestire l'hover dell'immagine
+  const handleMouseEnter = (id) => {
+    setHoveredCard(id); // Memorizza l'id della carta per cui è stato attivato l'hover
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredCard(null); // Rimuove l'id quando il mouse esce
   };
 
   return (
@@ -102,50 +112,70 @@ const MyHome = () => {
       </div>
 
       {/* Featured Cards section */}
-      <div className="container mt-5 bg-dark">
+      <div className="container mt-5 bg-dark ps-xl-1">
         <h2 className="text-center mb-4 fw-bold text-white">Featured Cards</h2>
-        <div className="row justify-content-center">
+        <div className="row justify-content-center g-4">
           {cards.map((card) => (
-            <div className="col-md-4 mb-4" key={card.id}>
-              <div style={{ width: "300px" }} className="card border-0 mx-5">
-              <Link to={`/card/${card.id}`}>
-                <img
-                  src={card.imageUrl}
-                  className="card-img-top"
-                  alt={card.name}
-                  style={{ width: "100%", height: "400px" }}
-                />
+            <div
+              key={card.id}
+              className="col-12 col-sm-10 col-md-6 col-lg-4 col-xl-3 d-flex justify-content-center"
+            >
+              <div
+                className="card border-0 bg-dark"
+                style={{ width: "100%", maxWidth: "300px" }}
+              >
+                <Link to={`/card/${card.id}`}>
+                  <div
+                    style={{
+                      height: "350px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      backgroundColor: "#212529",
+                      borderRadius: "10px",
+                      padding: "10px",
+                    }}
+                  >
+                    <img
+                      src={card.imageUrl}
+                      alt={card.name}
+                      style={{
+                        maxHeight: "100%",
+                        maxWidth: "100%",
+                        objectFit: "contain",
+                        borderRadius: "16px",
+                        transition: "transform 0.3s ease", // Aggiungi transizione per effetto smooth
+                        transform:
+                          hoveredCard === card.id ? "scale(1.1)" : "scale(1)", // Ingrandisce solo la carta con il mouse sopra
+                      }}
+                      onMouseEnter={() => handleMouseEnter(card.id)} // Attiva hover
+                      onMouseLeave={handleMouseLeave} // Rimuove hover
+                    />
+                  </div>
                 </Link>
-                <div className="card-body text-center bg-dark">
+                <div className="card-body text-center">
                   <h5 className="card-title text-info fw-bold">{card.name}</h5>
                   <p className="card-text text-white fw-bold">
                     {card.expansion} - €{card.price}
                   </p>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      gap: "10px",
-                    }}
-                  >
+                  <div className="d-flex justify-content-center align-items-center gap-2 mt-2">
                     <input
                       type="number"
                       min="1"
-                      value={quantities[card.id] || 1} // Usa il valore della quantità o 1 come default
+                      value={quantities[card.id] || 1}
+                      className="form-control text-center"
                       style={{
-                        width: "50px",
+                        width: "60px",
                         padding: "5px",
-                        textAlign: "center",
                         border: "1px solid #ddd",
-                        borderRadius: "5px",
+                        borderRadius: "15px",
                       }}
-                      onChange={(e) => handleQuantityChange(e, card)} // Funzione per aggiornare la quantità
+                      onChange={(e) => handleQuantityChange(e, card)}
                     />
                     <button
-                      className="btn btn-warning rounded-0 p-1 fw-bold"
-                      style={{ width: "50px", padding: "10px" }}
-                      onClick={() => handleAddToCart(card)} // Usa la funzione già definita
+                      className="btn btn-warning rounded-0 fw-bold"
+                      style={{ width: "50px", height: "38px" }}
+                      onClick={() => handleAddToCart(card)}
                     >
                       <FaShoppingCart />
                     </button>
@@ -161,6 +191,7 @@ const MyHome = () => {
 };
 
 export default MyHome;
+
 
 
 

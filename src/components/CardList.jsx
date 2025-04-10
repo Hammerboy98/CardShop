@@ -11,6 +11,7 @@ const CardList = () => {
   const [quantities, setQuantities] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [hoveredCard, setHoveredCard] = useState(null); // Stato per tracciare l'immagine sotto il mouse
   const dispatch = useDispatch();
   const location = useLocation(); // Accesso ai query param dalla URL
 
@@ -55,17 +56,39 @@ const CardList = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
+  // Funzioni per l'hover
+  const handleMouseEnter = (id) => {
+    setHoveredCard(id);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredCard(null);
+  };
+
   return (
     <div style={{ padding: '20px' }}>
-      <h2 className="mx-4 text-white">Our Products</h2>
-      <div className="col-12 mx-4" style={{ display: 'flex', flexWrap: 'wrap', gap: '30px' }}>
+      <h2 className="mx-4 text-center fw-bold text-white">Our Products</h2>
+      <div className="col-12 mx-sm-5 mx-md-4 ps-md-2 mx-lg-4 mx-xl-2 mx-xxl-4 ps-xxl-0" style={{ display: 'flex', flexWrap: 'wrap', gap: '30px' }}>
         {cards.length > 0 ? (
           cards.map((card) => (
             <div key={card.id} style={{ padding: '10px', width: '200px' }}>
               <Link to={`/card/${card.id}`}>
-              <img src={card.imageUrl} alt={card.name} style={{ width: '100%', height: '250px' }} />
+                <div
+                  onMouseEnter={() => handleMouseEnter(card.id)} // Mouse sopra
+                  onMouseLeave={handleMouseLeave} // Mouse fuori
+                  style={{
+                    transition: "transform 0.3s ease", // Transizione per l'effetto
+                    transform: hoveredCard === card.id ? "scale(1.1)" : "scale(1)", // Ingrandimento
+                  }}
+                >
+                  <img
+                    src={card.imageUrl}
+                    alt={card.name}
+                    style={{ width: '100%', height: '250px', borderRadius: "16px" }}
+                  />
+                </div>
               </Link>
-              <h6 className="fw-bolder text-center text-primary">{card.name}</h6>
+              <h6 className="fw-bolder text-center text-primary mt-3">{card.name}</h6>
               <h6 className="fw-bold text-center text-white">Expansion: {card.expansion}</h6>
               <p className="fw-bold text-center text-white">Rarity: {card.rarity}</p>
               <p className="fw-bold text-center text-white">Price: €{card.price}</p>
@@ -80,7 +103,7 @@ const CardList = () => {
                     padding: '5px',
                     textAlign: 'center',
                     border: '1px solid #ddd',
-                    borderRadius: '5px',
+                    borderRadius: '15px',
                   }}
                   onChange={(e) => handleQuantityChange(e, card)} // Funzione per aggiornare la quantità
                 />
@@ -103,4 +126,7 @@ const CardList = () => {
 };
 
 export default CardList;
+
+
+
 

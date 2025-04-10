@@ -1,11 +1,10 @@
 import React from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom"; // Importiamo Link da react-router-dom
-import { useNavigate } from "react-router-dom";
-import MyImage from "../assets/MyImage.png"
+import { Link, useNavigate } from "react-router-dom"; // Importiamo Link da react-router-dom
+import MyImage from "../assets/MyImage.png";
 
-const MyNavbar = () => {
+const MyNavbar = ({ isAuthenticated, handleLogout, userRole }) => {
   // Ottieni il numero di articoli nel carrello dallo stato Redux
   const cartCount = useSelector((state) => state.cart.items.length);
   const navigate = useNavigate();
@@ -30,11 +29,11 @@ const MyNavbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-primary sticky-top">
+    <nav className="navbar navbar-expand-xl navbar-light bg-primary sticky-top">
       <div className="container-fluid">
         {/* Logo che riporta alla home */}
         <Link className="navbar-brand" to="/">
-          <img style={{width:'50px',borderRadius:'50%'}} src={MyImage}></img>
+          <img style={{ width: "50px", borderRadius: "50%" }} src={MyImage} alt="logo" />
         </Link>
 
         {/* Bottone per la visualizzazione del menu mobile */}
@@ -54,33 +53,37 @@ const MyNavbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link className="nav-link active" to="/">
+              <Link className="nav-link active text-sm-center" to="/">
                 Home
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link active" to="/cards">
+              <Link className="nav-link active text-sm-center" to="/cards">
                 Cards
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link active" to="/about">
+              <Link className="nav-link active text-sm-center" to="/about">
                 About Us
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link active" to="/contact">
+              <Link className="nav-link active text-sm-center" to="/contact">
                 Contact Us
               </Link>
             </li>
+            {/* Aggiungi la voce di menu per Admin se l'utente è un admin */}
+            {isAuthenticated && userRole === "admin" && (
+              <li className="nav-item">
+                <Link className="nav-link active text-sm-center" to="/admin">
+                  Admin Dashboard
+                </Link>
+              </li>
+            )}
           </ul>
 
           {/* Form di ricerca */}
-          <form
-            className="d-flex ms-auto gap-2"
-            role="search"
-            onSubmit={handleSearch}
-          >
+          <form className="d-flex ms-auto gap-2 mt-sm-2" role="search" onSubmit={handleSearch}>
             <input
               className="form-control"
               type="search"
@@ -103,14 +106,33 @@ const MyNavbar = () => {
           </form>
 
           {/* Bottone del carrello */}
-          <div className="ms-3 ">
+          <div className="ms-3 d-flex justify-content-center align-items-center mt-sm-2 me-sm-4">
             <Link to="/cart" className="btn btn-outline-dark">
               <FaShoppingCart />
               {cartCount > 0 && (
                 <span className="badge bg-danger mx-1">{cartCount}</span>
               )}
             </Link>
+            {/* Gestione Login/Logout */}
+          <div className="ms-3">
+            {!isAuthenticated ? (
+              <>
+                <Link className="btn btn-outline-dark" to="/login">
+                  Login
+                </Link>
+                <Link className="btn btn-outline-dark ms-2" to="/register">
+                  Register
+                </Link>
+              </>
+            ) : (
+              <button className="btn btn-outline-dark" onClick={handleLogout}>
+                Logout
+              </button>
+            )}
           </div>
+          </div>
+
+          
         </div>
       </div>
     </nav>
@@ -118,3 +140,5 @@ const MyNavbar = () => {
 };
 
 export default MyNavbar;
+
+
