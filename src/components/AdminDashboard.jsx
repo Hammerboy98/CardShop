@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const AdminDashboard = () => {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [currentCard, setCurrentCard] = useState({ id: '', name: '', description: '' });
-  const [newCard, setNewCard] = useState({ name: '', description: '' });
+  const [currentCard, setCurrentCard] = useState({ id: '', name: '', imageUrl: '', expansion: '', rarity: '', price: '' });
+  const [newCard, setNewCard] = useState({ name: '', imageUrl: '', expansion: '', rarity: '', price: '' });
+  const [hoveredCard, setHoveredCard] = useState(null);
 
   const navigate = useNavigate();
 
@@ -20,7 +21,7 @@ const AdminDashboard = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:7140/api/cards', {
+      const response = await fetch('https://localhost:7140/api/cards', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -51,7 +52,7 @@ const AdminDashboard = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:7140/api/cards/${id}`, {
+      const response = await fetch(`https://localhost:7140/api/cards/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -80,7 +81,7 @@ const AdminDashboard = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:7140/api/cards', {
+      const response = await fetch('https://localhost:7140/api/cards', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -91,8 +92,9 @@ const AdminDashboard = () => {
 
       if (response.ok) {
         const addedCard = await response.json();
-        setCards([...cards, addedCard]);
-        setNewCard({ name: '', description: '' });
+        setCards([addedCard, ...cards]);
+
+        setNewCard({ name: '', imageUrl: '', expansion: '', rarity: '', price: '' });
         alert('Card added successfully');
       } else {
         alert('Failed to add the card');
@@ -105,7 +107,8 @@ const AdminDashboard = () => {
 
   // Funzione per modificare una carta esistente
   const handleEditCard = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Previene il comportamento di default del form (refresh della pagina)
+
     const token = localStorage.getItem('jwtToken');
     if (!token) {
       console.log('No token found, user is not logged in');
@@ -113,7 +116,7 @@ const AdminDashboard = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:7140/api/cards/${currentCard.id}`, {
+      const response = await fetch(`https://localhost:7140/api/cards/${currentCard.id}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -123,11 +126,18 @@ const AdminDashboard = () => {
       });
 
       if (response.ok) {
-        const updatedCard = await response.json();
+        let updatedCard = currentCard; // fallback
+      
+        if (response.status !== 204) {
+          updatedCard = await response.json();
+        }
+      
         setCards(cards.map(card => (card.id === currentCard.id ? updatedCard : card)));
         setIsEditing(false);
-        setCurrentCard({ id: '', name: '', description: '' });
+        setCurrentCard({ id: '', name: '', imageUrl: '', expansion: '', rarity: '', price: '' });
         alert('Card updated successfully');
+      
+      
       } else {
         alert('Failed to update the card');
       }
@@ -150,23 +160,40 @@ const AdminDashboard = () => {
   // Carica le carte al montaggio del componente e verifica autenticazione
   useEffect(() => {
     const token = localStorage.getItem('jwtToken');
-    const role = token ? JSON.parse(atob(token.split('.')[1])).role : null;
-
-    if (!token || role !== 'admin') {
-      navigate('/login'); // Reindirizza se non autenticato o se non è admin
-    } else {
-      fetchCards(); // Solo carica le carte se l'utente è un admin
+    
+    if (!token) {
+      navigate('/login'); // Reindirizza se non autenticato
+      return;
     }
-  }, [navigate]); // Aggiungi navigate nella dipendenza
+
+    const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decodifica il token
+    const username = decodedToken.username; // Estrai il nome utente dal token (presumendo che sia lì)
+
+    if ( username === 'Ettore') {
+      navigate('/login'); // Se non è admin e non è Ettore, reindirizza alla login
+      return;
+    }
+    
+    fetchCards(); // Solo carica le carte se l'utente è un admin o Ettore
+  }, [navigate]);
+
+  // Gestione dell'effetto hover
+  const handleMouseEnter = (id) => {
+    setHoveredCard(id);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredCard(null);
+  };
 
   return (
-    <div>
-      <h1>Admin Dashboard</h1>
-      <h2>Manage Cards</h2>
+    <div style={styles.container}>
+      <h1 className='text-center'>Admin Dashboard</h1>
+      <h2 className='text-center'>Manage Cards</h2>
 
       {/* Form di aggiunta carta */}
-      <h3>Add New Card</h3>
-      <form onSubmit={handleAddCard}>
+      <h3 className='text-center'>Add New Card</h3>
+      <form onSubmit={handleAddCard} style={styles.form}>
         <input
           type="text"
           name="name"
@@ -174,55 +201,105 @@ const AdminDashboard = () => {
           onChange={handleInputChange}
           placeholder="Card Name"
           required
+          style={styles.input}
         />
         <input
           type="text"
-          name="description"
-          value={newCard.description}
+          name="imageUrl"
+          value={newCard.imageUrl}
           onChange={handleInputChange}
-          placeholder="Card Description"
+          placeholder="Image URL"
           required
+          style={styles.input}
         />
-        <button type="submit">Add Card</button>
+        <input
+          type="text"
+          name="expansion"
+          value={newCard.expansion}
+          onChange={handleInputChange}
+          placeholder="Expansion"
+          required
+          style={styles.input}
+        />
+        <input
+          type="text"
+          name="rarity"
+          value={newCard.rarity}
+          onChange={handleInputChange}
+          placeholder="Rarity"
+          required
+          style={styles.input}
+        />
+        <input
+          type="number"
+          name="price"
+          value={newCard.price}
+          onChange={handleInputChange}
+          placeholder="Price"
+          required
+          style={styles.input}
+        />
+        <button type="submit" style={styles.button}>Add Card</button>
       </form>
 
       {/* Gestione del caricamento */}
-      {loading && <p>Loading cards...</p>}
+      {loading && <p style={styles.text}>Loading cards...</p>}
 
       {/* Gestione degli errori */}
-      {error && <p>{error}</p>}
+      {error && <p style={styles.text}>{error}</p>}
 
       {/* Elenco delle carte */}
       <h3>Existing Cards</h3>
-      <ul>
+      <div style={styles.cardContainer}>
         {cards.length === 0 ? (
-          <p>No cards available.</p>
+          <p style={styles.text}>No cards available.</p>
         ) : (
           cards.map(card => (
-            <li key={card.id}>
-              <div>
-                <p>{card.name}</p>
-                <p>{card.description}</p>
-
-                {/* Modifica carta */}
-                <button
-                  onClick={() => {
-                    setIsEditing(true);
-                    setCurrentCard({ ...card });
+            <div
+              key={card.id}
+              style={styles.card}
+            >
+              <Link to={`/card/${card.id}`} style={styles.link}>
+                <div
+                  onMouseEnter={() => handleMouseEnter(card.id)}
+                  onMouseLeave={handleMouseLeave}
+                  style={{
+                    ...styles.cardImageContainer,
+                    transform: hoveredCard === card.id ? 'scale(1.1)' : 'scale(1)',
                   }}
                 >
-                  Edit
-                </button>
+                  <img
+                    src={card.imageUrl}
+                    alt={card.name}
+                    style={styles.cardImage}
+                  />
+                </div>
+              </Link>
+              <h6 style={styles.cardTitle}>{card.name}</h6>
+              <h6 style={styles.cardExpansion}>Expansion: {card.expansion}</h6>
+              <p style={styles.cardText}>Rarity: {card.rarity}</p>
+              <p style={styles.cardText}>Price: €{card.price}</p>
+              <button
+                onClick={() => {
+                  setIsEditing(true);
+                  setCurrentCard(card);
+                }}
+                style={styles.editButton}
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => handleDelete(card.id)}
+                style={styles.deleteButton}
+              >
+                Delete
+              </button>
 
-                {/* Elimina carta */}
-                <button onClick={() => handleDelete(card.id)}>Delete</button>
-              </div>
-
-              {/* Modulo di modifica carta */}
+              {/* Form di modifica carta */}
               {isEditing && currentCard.id === card.id && (
-                <div>
+                <div style={styles.formContainer}>
                   <h4>Edit Card</h4>
-                  <form onSubmit={handleEditCard}>
+                  <form onSubmit={handleEditCard} style={styles.form}>
                     <input
                       type="text"
                       name="name"
@@ -230,27 +307,189 @@ const AdminDashboard = () => {
                       onChange={handleInputChange}
                       placeholder="Card Name"
                       required
+                      style={styles.input}
                     />
                     <input
                       type="text"
-                      name="description"
-                      value={currentCard.description}
+                      name="imageUrl"
+                      value={currentCard.imageUrl}
                       onChange={handleInputChange}
-                      placeholder="Card Description"
+                      placeholder="Image URL"
                       required
+                      style={styles.input}
                     />
-                    <button type="submit">Update Card</button>
-                    <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
+                    <input
+                      type="text"
+                      name="expansion"
+                      value={currentCard.expansion}
+                      onChange={handleInputChange}
+                      placeholder="Expansion"
+                      required
+                      style={styles.input}
+                    />
+                    <input
+                      type="text"
+                      name="rarity"
+                      value={currentCard.rarity}
+                      onChange={handleInputChange}
+                      placeholder="Rarity"
+                      required
+                      style={styles.input}
+                    />
+                    <input
+                      type="number"
+                      name="price"
+                      value={currentCard.price}
+                      onChange={handleInputChange}
+                      placeholder="Price"
+                      required
+                      style={styles.input}
+                    />
+                    <button type="submit" style={styles.button}>Update Card</button>
+                    <button
+                      type="button"
+                      onClick={() => setIsEditing(false)}
+                      style={styles.cancelButton}
+                    >
+                      Cancel
+                    </button>
                   </form>
                 </div>
               )}
-            </li>
+            </div>
           ))
         )}
-      </ul>
+      </div>
     </div>
   );
 };
 
+const styles = {
+  container: {
+    padding: '20px',
+    backgroundColor: '#121212',
+    color: '#fff',
+    maxWidth: '1200px',
+    margin: '0 auto',
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '12px',
+    width: '100%',
+  },
+  input: {
+    padding: '10px',
+    borderRadius: '8px',
+    border: '1px solid #ccc',
+    backgroundColor: '#333',
+    color: '#fff',
+    fontSize: '16px',
+    width: '100%',
+  },
+  button: {
+    padding: '10px',
+    backgroundColor: '#28a745',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontSize: '16px',
+  },
+  cancelButton: {
+    padding: '10px',
+    backgroundColor: '#dc3545',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontSize: '16px',
+  },
+  cardContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: '20px',
+    marginTop: '20px',
+  },
+  card: {
+    flex: '1 1 250px',
+    maxWidth: '300px',
+    backgroundColor: '#1e1e1e',
+    borderRadius: '16px',
+    textAlign: 'center',
+    padding: '16px',
+    boxSizing: 'border-box',
+  },
+  link: {
+    textDecoration: 'none',
+    display: 'block',
+    marginBottom: '10px',
+  },
+  cardImageContainer: {
+    transition: 'transform 0.3s ease',
+  },
+  cardImage: {
+    width: '100%',
+    height: 'auto',
+    aspectRatio: '2/3',
+    borderRadius: '16px',
+    objectFit: 'cover',
+  },
+  cardTitle: {
+    fontWeight: 'bold',
+    color: '#00bfff',
+    fontSize: '18px',
+    margin: '8px 0 4px',
+  },
+  cardExpansion: {
+    fontWeight: 'bold',
+    color: '#fff',
+    fontSize: '16px',
+  },
+  cardText: {
+    fontWeight: 'bold',
+    color: '#aaa',
+    fontSize: '14px',
+  },
+  editButton: {
+    backgroundColor: '#007bff',
+    color: '#fff',
+    padding: '8px 12px',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    marginRight: '8px',
+    fontSize: '14px',
+    marginTop: '10px',
+  },
+  deleteButton: {
+    backgroundColor: '#dc3545',
+    color: '#fff',
+    padding: '8px 12px',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontSize: '14px',
+    marginTop: '10px',
+  },
+  formContainer: {
+    marginTop: '20px',
+    backgroundColor: '#2c2c2c',
+    padding: '20px',
+    borderRadius: '16px',
+  },
+  text: {
+    color: '#fff',
+    textAlign: 'center',
+  },
+};
+
+
 export default AdminDashboard;
+
+
+
+
+
 

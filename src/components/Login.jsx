@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { loginSuccess } from '../redux/authSlice';
+import { useDispatch } from 'react-redux';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const response = await fetch('http://localhost:7140/api/auth/login', {
+    const response = await fetch('https://localhost:7140/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password }),
@@ -20,11 +21,17 @@ const Login = () => {
     const data = await response.json();
 
     if (response.ok) {
-      // Salva il token JWT in localStorage
+      // Salva il token nel localStorage
       localStorage.setItem('jwtToken', data.token);
-      navigate('/'); // Reindirizza alla home o a una pagina protetta
+
+      // Dispatch l'azione di login con l'utente e il suo ruolo
+      dispatch(loginSuccess({ username, role: data.role }));
+
+      // Naviga alla home
+      navigate('/');
     } else {
-      setError(data.Message || 'Login failed');
+      // Gestisci l'errore in caso di fallimento, potresti anche voler aggiornare l'UI con un alert o un messaggio
+      alert(data.Message || 'Login failed');
     }
   };
 
@@ -81,21 +88,6 @@ const Login = () => {
     buttonHover: {
       backgroundColor: '#0056b3',
     },
-    errorMessage: {
-      color: 'red',
-      fontSize: '14px',
-      marginTop: '10px',
-    },
-    registerLink: {
-      marginTop: '20px',
-    },
-    registerLinkText: {
-      color: '#007bff',
-      textDecoration: 'none',
-    },
-    registerLinkTextHover: {
-      textDecoration: 'underline',
-    },
   };
 
   return (
@@ -126,19 +118,12 @@ const Login = () => {
             Login
           </button>
         </form>
-        {error && <p style={styles.errorMessage}>{error}</p>}
-        <div style={styles.registerLink}>
-          <p>
-            Non hai un account?{' '}
-            <Link to="/register" style={styles.registerLinkText}>
-              Registrati!
-            </Link>
-          </p>
-        </div>
       </div>
     </div>
   );
 };
 
 export default Login;
+
+
 

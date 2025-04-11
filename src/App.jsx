@@ -13,7 +13,6 @@ import PokemonPage from "./components/PokemonPage";
 import CardDetail from "./components/CardDetail";
 import AdminDashboard from "./components/AdminDashboard"; // Importa la Dashboard Admin
 import Login from "./components/Login"; // Importa la pagina di login
-import Register from "./components/Register";
 import PrivateRoute from "./components/PrivateRoute"; // Importa il componente per la protezione delle rotte
 
 function App() {
@@ -46,7 +45,7 @@ function App() {
           <Route path="/magic" element={<MagicPage />} /> {/* Pagina Magic */}
           <Route path="/pokemon" element={<PokemonPage />} /> {/* Pagina Pokémon */}
           <Route path="/card/:id" element={<CardDetail />} /> {/* Dettaglio carta */}
-          <Route path="/register" element={<Register />} />
+          
 
           {/* Route Admin protetta */}
           <Route 
