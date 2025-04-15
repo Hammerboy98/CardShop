@@ -18,3 +18,11 @@ export const createCard = async (card) => {
   if (!response.ok) throw new Error("Errore nella creazione della carta");
   return await response.json();
 };
+
+export const getCardsByCategory = async (category) => {
+  const response = await fetch(`${API_URL}/category/${category}`);
+  if (!response.ok) throw new Error("Errore nel recupero delle carte per categoria");
+  return await response.json();
+};
+
+

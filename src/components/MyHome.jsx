@@ -81,7 +81,7 @@ const MyHome = () => {
                 src="https://clazo-pokemon.netlify.app/static/media/portadapokemon.5b8a5f11.png" // Immagine Pokémon
                 alt="Pokémon"
                 className="card-img-top"
-                style={{ height: "175px", width: "100%" }}
+                style={{ height: "175px", width: "100%" , objectFit:"contain"}}
               />
               <div className="card-body text-center">
                 <h5 className="card-title">Pokémon</h5>
@@ -101,7 +101,7 @@ const MyHome = () => {
                 src="https://carrettodicarta.it/wp-content/uploads/2024/07/Magic-The-Gathering-Logo.png" // Immagine Magic
                 alt="Magic"
                 className="card-img-top"
-                style={{ height: "150px", width: "100%" }}
+                style={{ height: "150px", width: "100%" , objectFit:"contain"}}
               />
               <div className="card-body text-center">
                 <h5 className="card-title text-center">Magic: The Gathering</h5>

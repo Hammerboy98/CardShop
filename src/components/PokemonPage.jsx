@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getAllCards } from "../api/cards";
+import { getCardsByCategory } from "../api/cards";
 import { addToCart } from "../redux/cartSlice";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -14,13 +14,13 @@ const PokemonPage = () => {
   useEffect(() => {
     const fetchCards = async () => {
       try {
-        const data = await getAllCards();
-        setCards(data.slice(0, 24)); // Prime 24 carte Pokémon
+        const data = await getCardsByCategory("Pokemon");
+        setCards(data);
       } catch (error) {
-        console.error("Error fetching Pokémon cards:", error);
+        console.error("Errore nel recupero delle carte Pokémon:", error);
       }
     };
-
+  
     fetchCards();
   }, []);
 

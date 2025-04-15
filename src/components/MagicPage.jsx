@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getAllCards } from "../api/cards";
+import { getCardsByCategory } from "../api/cards";
 import { addToCart } from "../redux/cartSlice";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -12,17 +12,17 @@ const MagicPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetchCards = async () => {
-      try {
-        const data = await getAllCards();
-        setCards(data.slice(24, 48)); // Le carte da 25 a 48 sono Magic
-      } catch (error) {
-        console.error("Error fetching Magic cards:", error);
-      }
-    };
-
-    fetchCards();
-  }, []);
+      const fetchCards = async () => {
+        try {
+          const data = await getCardsByCategory("Magic");
+          setCards(data);
+        } catch (error) {
+          console.error("Errore nel recupero delle carte Pokémon:", error);
+        }
+      };
+    
+      fetchCards();
+    }, []);
 
   const handleQuantityChange = (e, cardId) => {
     const updatedQuantities = { ...quantities, [cardId]: e.target.value };

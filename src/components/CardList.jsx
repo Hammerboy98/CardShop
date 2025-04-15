@@ -92,6 +92,7 @@ const CardList = () => {
               <h6 className="fw-bold text-center text-white">Expansion: {card.expansion}</h6>
               <p className="fw-bold text-center text-white">Rarity: {card.rarity}</p>
               <p className="fw-bold text-center text-white">Price: €{card.price}</p>
+              <p className='fw-bold text-center text-white'>Category: {card.category}</p>
 
               <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
                 <input

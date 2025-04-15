@@ -76,7 +76,7 @@ const Cart = () => {
                 </Link>
               </div>
               <div className="text-info fw-bold">
-                {card.name} - €{card.price}
+                {card.name} - €{card.price} - {card.category}
               </div>
               <div className="d-flex align-items-center">
                 <input

@@ -6,8 +6,8 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [currentCard, setCurrentCard] = useState({ id: '', name: '', imageUrl: '', expansion: '', rarity: '', price: '' });
-  const [newCard, setNewCard] = useState({ name: '', imageUrl: '', expansion: '', rarity: '', price: '' });
+  const [currentCard, setCurrentCard] = useState({ id: '', name: '', imageUrl: '', expansion: '', rarity: '', price: '',category:'' });
+  const [newCard, setNewCard] = useState({ name: '', imageUrl: '', expansion: '', rarity: '', price: '',category:'' });
   const [hoveredCard, setHoveredCard] = useState(null);
 
   const navigate = useNavigate();
@@ -94,7 +94,7 @@ const AdminDashboard = () => {
         const addedCard = await response.json();
         setCards([addedCard, ...cards]);
 
-        setNewCard({ name: '', imageUrl: '', expansion: '', rarity: '', price: '' });
+        setNewCard({ name: '', imageUrl: '', expansion: '', rarity: '', price: '',category:'' });
         alert('Card added successfully');
       } else {
         alert('Failed to add the card');
@@ -134,7 +134,7 @@ const AdminDashboard = () => {
       
         setCards(cards.map(card => (card.id === currentCard.id ? updatedCard : card)));
         setIsEditing(false);
-        setCurrentCard({ id: '', name: '', imageUrl: '', expansion: '', rarity: '', price: '' });
+        setCurrentCard({ id: '', name: '', imageUrl: '', expansion: '', rarity: '', price: '',category:'' });
         alert('Card updated successfully');
       
       
@@ -239,6 +239,15 @@ const AdminDashboard = () => {
           required
           style={styles.input}
         />
+        <input
+          type="text"
+          name="category"
+          value={newCard.category}
+          onChange={handleInputChange}
+          placeholder="Category"
+          required
+          style={styles.input}
+        />
         <button type="submit" style={styles.button}>Add Card</button>
       </form>
 
@@ -279,6 +288,7 @@ const AdminDashboard = () => {
               <h6 style={styles.cardExpansion}>Expansion: {card.expansion}</h6>
               <p style={styles.cardText}>Rarity: {card.rarity}</p>
               <p style={styles.cardText}>Price: €{card.price}</p>
+              <p className='fw-bold text-center text-white'>Category: {card.category}</p>
               <button
                 onClick={() => {
                   setIsEditing(true);
