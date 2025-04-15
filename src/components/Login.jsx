@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [welcomeMessage, setWelcomeMessage] = useState(''); // State for the welcome message
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -21,39 +22,41 @@ const Login = () => {
     const data = await response.json();
   
     if (response.ok) {
-      // Salva il token nel localStorage
+      // Save the token to localStorage
       localStorage.setItem('jwtToken', data.token);
   
-      // Decodifica il token per estrarre username e ruolo
+      // Decode the token to extract username and role
       try {
         const decoded = JSON.parse(atob(data.token.split('.')[1]));
         const usernameFromToken = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
         const roleFromToken = decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
   
-        // Normalizza l'username per evitare problemi di case-sensitivity
-        const normalizedUsername = usernameFromToken.toLowerCase();
+        // Normalize the username and capitalize the first letter
+        const normalizedUsername = usernameFromToken.charAt(0).toUpperCase() + usernameFromToken.slice(1).toLowerCase();
   
         console.log("Decoded from token:", { usernameFromToken, roleFromToken });
   
-        // Dispatch con i dati estratti dal token
+        // Dispatch the data extracted from the token
         dispatch(loginSuccess({
-          username: normalizedUsername,  // Usa l'username normalizzato
+          username: normalizedUsername,  // Use the normalized username
           role: roleFromToken,
-          user: normalizedUsername,  // Puoi passare l'username anche come 'user' o altro
+          user: normalizedUsername,  // You can pass the username as 'user' or other
         }));
   
-        // Naviga alla home
-        navigate('/');
+        // Set the welcome message
+        setWelcomeMessage(`Welcome, ${normalizedUsername}!`);
+  
+        // Navigate to the home page after setting the welcome message
+        setTimeout(() => navigate('/'), 2000); // Stay on the login page for 2 seconds to see the message
       } catch (error) {
-        console.error("Errore durante la decodifica del token:", error);
-        alert("Si è verificato un errore durante il login.");
+        console.error("Error during token decoding:", error);
+        alert("An error occurred during login.");
       }
     } else {
-      // Se la risposta non è ok, mostra l'errore
+      // If the response is not OK, show the error
       alert(data.Message || 'Login failed');
     }
   };
-  
 
   const styles = {
     container: {
@@ -108,12 +111,19 @@ const Login = () => {
     buttonHover: {
       backgroundColor: '#0056b3',
     },
+    welcomeMessage: {
+      color: '#28a745',
+      fontSize: '18px',
+      marginBottom: '20px',
+    },
   };
 
   return (
     <div style={styles.container}>
       <div style={styles.card}>
         <h2 style={styles.title}>Login</h2>
+        {/* Show the welcome message only after successful login */}
+        {welcomeMessage && <p style={styles.welcomeMessage}>{welcomeMessage}</p>}
         <form onSubmit={handleLogin} style={styles.form}>
           <input
             type="text"
@@ -144,6 +154,8 @@ const Login = () => {
 };
 
 export default Login;
+
+
 
 
 
