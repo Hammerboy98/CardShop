@@ -102,11 +102,15 @@ const MyNavbar = () => {
 
             {/* Login / Logout */}
             <div className="d-flex gap-2 mt-2 mt-xl-0">
-              {!isAuthenticated ? (
-                <Link className="btn btn-outline-light" to="/login">Login</Link>
-              ) : (
-                <button className="btn btn-outline-light" onClick={handleLogout}>Logout</button>
-              )}
+            {!isAuthenticated ? (
+  <>
+    <Link className="btn btn-outline-light" to="/login">Login</Link>
+    <Link className="btn btn-outline-light" to="/register">Register</Link>
+  </>
+) : (
+  <button className="btn btn-outline-light" onClick={handleLogout}>Logout</button>
+)}
+
 
               {/* Carrello */}
               <Link to="/cart" className="btn btn-outline-light position-relative">
