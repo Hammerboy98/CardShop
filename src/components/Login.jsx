@@ -11,29 +11,49 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+  
     const response = await fetch('https://localhost:7140/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password }),
     });
-
+  
     const data = await response.json();
-
+  
     if (response.ok) {
       // Salva il token nel localStorage
       localStorage.setItem('jwtToken', data.token);
-
-      // Dispatch l'azione di login con l'utente e il suo ruolo
-      dispatch(loginSuccess({ username, role: data.role }));
-
-      // Naviga alla home
-      navigate('/');
+  
+      // Decodifica il token per estrarre username e ruolo
+      try {
+        const decoded = JSON.parse(atob(data.token.split('.')[1]));
+        const usernameFromToken = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+        const roleFromToken = decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+  
+        // Normalizza l'username per evitare problemi di case-sensitivity
+        const normalizedUsername = usernameFromToken.toLowerCase();
+  
+        console.log("Decoded from token:", { usernameFromToken, roleFromToken });
+  
+        // Dispatch con i dati estratti dal token
+        dispatch(loginSuccess({
+          username: normalizedUsername,  // Usa l'username normalizzato
+          role: roleFromToken,
+          user: normalizedUsername,  // Puoi passare l'username anche come 'user' o altro
+        }));
+  
+        // Naviga alla home
+        navigate('/');
+      } catch (error) {
+        console.error("Errore durante la decodifica del token:", error);
+        alert("Si è verificato un errore durante il login.");
+      }
     } else {
-      // Gestisci l'errore in caso di fallimento, potresti anche voler aggiornare l'UI con un alert o un messaggio
+      // Se la risposta non è ok, mostra l'errore
       alert(data.Message || 'Login failed');
     }
   };
+  
 
   const styles = {
     container: {
@@ -124,6 +144,7 @@ const Login = () => {
 };
 
 export default Login;
+
 
 
 

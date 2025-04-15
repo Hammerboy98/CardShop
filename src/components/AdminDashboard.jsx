@@ -162,21 +162,30 @@ const AdminDashboard = () => {
     const token = localStorage.getItem('jwtToken');
     
     if (!token) {
-      navigate('/login'); // Reindirizza se non autenticato
+      navigate('/login');
       return;
     }
-
-    const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decodifica il token
-    const username = decodedToken.username; // Estrai il nome utente dal token (presumendo che sia lì)
-
-    if ( username === 'Ettore') {
-      navigate('/login'); // Se non è admin e non è Ettore, reindirizza alla login
-      return;
+  
+    try {
+      const decodedToken = JSON.parse(atob(token.split('.')[1]));
+  
+      const username = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+      const role = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+  
+      console.log('Decoded token:', { username, role });
+  
+      if (role !== 'admin' && username !== 'Ettore') {
+        navigate('/login');
+        return;
+      }
+  
+      fetchCards();
+    } catch (err) {
+      console.error('Token decoding failed:', err);
+      navigate('/login');
     }
-    
-    fetchCards(); // Solo carica le carte se l'utente è un admin o Ettore
   }, [navigate]);
-
+  
   // Gestione dell'effetto hover
   const handleMouseEnter = (id) => {
     setHoveredCard(id);

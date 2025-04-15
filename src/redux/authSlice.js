@@ -13,9 +13,11 @@ const authSlice = createSlice({
   reducers: {
     loginSuccess: (state, action) => {
       state.isAuthenticated = true;
+      // Assicurati che l'username sia sempre in minuscolo
+      const usernameNormalized = action.payload.username.toLowerCase();
       state.user = action.payload.user;
       state.role = action.payload.role; // Memorizza il ruolo dell'utente
-      state.username = action.payload.username; // Memorizza lo username
+      state.username = usernameNormalized; // Memorizza lo username normalizzato
     },
     logout: (state) => {
       state.isAuthenticated = false;

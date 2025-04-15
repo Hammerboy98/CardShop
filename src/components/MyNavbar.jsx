@@ -8,12 +8,10 @@ import MyImage from "../assets/MyImage.png";
 const MyNavbar = () => {
   const cartCount = useSelector((state) => state.cart.items.length);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const username = useSelector((state) => state.auth.username);
-  const role = useSelector((state) => state.auth.user?.role);
+  const role = useSelector((state) => state.auth.role);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const userRole = username === "Ettore" ? "admin" : role;
 
   const [searchName, setSearchName] = React.useState("");
   const [searchExpansion, setSearchExpansion] = React.useState("");
@@ -71,7 +69,7 @@ const MyNavbar = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/contact">Contact Us</Link>
             </li>
-            {isAuthenticated && userRole === "admin" && (
+            {isAuthenticated && role === "admin" && (
               <li className="nav-item">
                 <Link className="nav-link" to="/admin">Admin Dashboard</Link>
               </li>
@@ -131,6 +129,7 @@ const MyNavbar = () => {
 };
 
 export default MyNavbar;
+
 
 
 
