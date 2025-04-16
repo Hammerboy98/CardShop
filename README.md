@@ -1,12 +1,62 @@
-# React + Vite
+# 🃏 CardShop - Colleziona. Acquista.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Benvenuto su **CardShop**, il tuo e-commerce di fiducia per carte collezionabili!  
+Qui puoi esplorare, cercare, filtrare, acquistare e gestire la tua collezione di carte Pokémon, Magic: The Gathering e Yu-Gi-Oh!
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Funzionalità principali
 
-## Expanding the ESLint configuration
+### 🛍️ Esplora e Acquista
+- Sfoglia tutte le carte disponibili nella sezione **Cards**.
+- Filtra per **nome** ed **espansione**.
+- Vedi tutte le informazioni: nome, espansione, rarità, prezzo e categoria.
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 🔍 Filtri per Espansione
+- Filtra velocemente dalla homepage per:
+  - Pokémon
+  - Magic: The Gathering
+  - Yu-Gi-Oh!
+
+### 🖼️ Visualizza Dettagli
+- Clicca su qualsiasi carta per vederla nel dettaglio in una pagina dedicata.
+
+### 🛒 Aggiungi al Carrello
+- Imposta la quantità desiderata.
+- Aggiungi al carrello con un semplice clic sull’icona 🛒.
+- Gestione del carrello integrata con Redux.
+
+### 🔐 Autenticazione
+- Accesso sicuro con **JWT Token** per proteggere le rotte e le operazioni sensibili.
+
+### 🔄 Navigazione Semplice
+- Torna alla **homepage** o alla **collezione completa** con link rapidi.
+
+---
+
+## ⚙️ Tecnologie Utilizzate
+
+### 🧠 Frontend
+- **React** – Libreria principale per l'interfaccia utente.
+- **React Router** – Navigazione tra pagine.
+- **Redux Toolkit** – Gestione dello stato globale.
+- **Bootstrap 5** – Stile responsive e componenti pronti.
+- **React Icons** – Icone eleganti e personalizzabili.
+- **CSS inline** – Stili personalizzati direttamente nei componenti React.
+
+### 💾 Backend
+- **ASP.NET Core Web API (C#)** – Backend API robusto e scalabile.
+- **SQL Server** – Database relazionale per carte e utenti.
+- **JWT (JSON Web Token)** – Autenticazione sicura.
+
+---
+
+## 🚀 Come eseguire il progetto
+
+### 🧬 1. Clonare la Repository
+
+Apri il terminale e digita:
+
+```bash
+git clone https://github.com/tuo-username/cardshop.git
+cd cardshop
