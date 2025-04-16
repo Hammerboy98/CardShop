@@ -68,7 +68,8 @@ const CardList = () => {
   return (
     <div style={{ padding: '20px' }}>
       <h2 className="mx-4 text-center fw-bold text-white">Our Products</h2>
-      <div className="col-12 mx-sm-5 mx-md-4 ps-md-2 mx-lg-4 mx-xl-2 mx-xxl-4 ps-xxl-0" style={{ display: 'flex', flexWrap: 'wrap', gap: '30px' }}>
+      <div className="container d-flex flex-wrap justify-content-center gap-4">
+
         {cards.length > 0 ? (
           cards.map((card) => (
             <div key={card.id} style={{ padding: '10px', width: '200px' }}>
