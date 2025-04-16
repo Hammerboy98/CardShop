@@ -58,5 +58,5 @@ Qui puoi esplorare, cercare, filtrare, acquistare e gestire la tua collezione di
 Apri il terminale e digita:
 
 ```bash
-git clone https://github.com/tuo-username/cardshop.git
+git clone https://github.com/Hammerboy98/cardshop.git
 cd cardshop
