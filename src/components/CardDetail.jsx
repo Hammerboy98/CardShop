@@ -52,9 +52,10 @@ const CardDetail = () => {
               style={{ maxHeight: "500px", objectFit: "contain" }}
             />
             <div className="card-body">
-              <h2 className="card-title text-info fw-bold">{card.name}</h2>
+              <h2 className="card-title text-danger fw-bold">{card.name}</h2>
               <p className="card-text text-info fw-bold">{card.expansion}</p>
-              <p className="card-text h4 text-success fw-bold">€{card.price}</p>
+              <p className="card-text h4 text-danger fw-bold">€{card.price}</p>
+              <p className="card-text h4 text-info fw-bold">Category : {card.category}</p>
 
               <div className="d-flex justify-content-center align-items-center gap-3 mt-4">
                 <input

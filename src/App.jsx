@@ -10,6 +10,7 @@ import AboutUs from "./components/AboutUs";
 import ContactUs from "./components/ContactUs";
 import MagicPage from "./components/MagicPage"; 
 import PokemonPage from "./components/PokemonPage"; 
+import YuGiOhPage from "./components/YuGiOhPage";
 import CardDetail from "./components/CardDetail";
 import AdminDashboard from "./components/AdminDashboard"; // Importa la Dashboard Admin
 import Login from "./components/Login"; // Importa la pagina di login
@@ -45,6 +46,7 @@ function App() {
           <Route path="/contact" element={<ContactUs />} /> {/* Pagina Contact Us */}
           <Route path="/magic" element={<MagicPage />} /> {/* Pagina Magic */}
           <Route path="/pokemon" element={<PokemonPage />} /> {/* Pagina Pokémon */}
+          <Route path="/yugioh" element={<YuGiOhPage />} />
           <Route path="/card/:id" element={<CardDetail />} /> {/* Dettaglio carta */}
           <Route path="/register" element={<Register/>} />
           

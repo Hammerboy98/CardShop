@@ -69,46 +69,70 @@ const MyHome = () => {
       <div className="container mt-5 text-center">
         <h2 className="text-white mb-4 fw-bold">Filter By Expansion</h2>
         <div className="d-flex justify-content-center gap-3">
-          <div
-            className="card bg-dark text-white border-0 mx-5"
-            style={{ cursor: "pointer", width: "200px" }}
-          >
-            <Link
-              to="/pokemon" // Link alla pagina delle carte Pokémon
-              className="text-decoration-none text-white"
-            >
-              <img
-                src="https://clazo-pokemon.netlify.app/static/media/portadapokemon.5b8a5f11.png" // Immagine Pokémon
-                alt="Pokémon"
-                className="card-img-top"
-                style={{ height: "175px", width: "100%" , objectFit:"contain"}}
-              />
-              <div className="card-body text-center">
-                <h5 className="card-title">Pokémon</h5>
-              </div>
-            </Link>
-          </div>
+  {/* Pokémon */}
+  <div
+    className="card bg-dark text-white border-0 mx-3"
+    style={{ cursor: "pointer", width: "200px" }}
+  >
+    <Link
+      to="/pokemon"
+      className="text-decoration-none text-white"
+    >
+      <img
+        src="https://clazo-pokemon.netlify.app/static/media/portadapokemon.5b8a5f11.png"
+        alt="Pokémon"
+        className="card-img-top"
+        style={{ height: "175px", width: "100%", objectFit: "contain" }}
+      />
+      <div className="card-body text-center">
+        <h5 className="card-title">Pokémon</h5>
+      </div>
+    </Link>
+  </div>
 
-          <div
-            className="card bg-dark text-white border-0 mx-5"
-            style={{ cursor: "pointer", width: "200px" }}
-          >
-            <Link
-              to="/magic" // Link alla pagina delle carte Magic
-              className="text-decoration-none text-white"
-            >
-              <img
-                src="https://carrettodicarta.it/wp-content/uploads/2024/07/Magic-The-Gathering-Logo.png" // Immagine Magic
-                alt="Magic"
-                className="card-img-top"
-                style={{ height: "150px", width: "100%" , objectFit:"contain"}}
-              />
-              <div className="card-body text-center">
-                <h5 className="card-title text-center">Magic: The Gathering</h5>
-              </div>
-            </Link>
-          </div>
-        </div>
+  {/* Magic */}
+  <div
+    className="card bg-dark text-white border-0 mx-3"
+    style={{ cursor: "pointer", width: "200px" }}
+  >
+    <Link
+      to="/magic"
+      className="text-decoration-none text-white"
+    >
+      <img
+        src="https://carrettodicarta.it/wp-content/uploads/2024/07/Magic-The-Gathering-Logo.png"
+        alt="Magic"
+        className="card-img-top"
+        style={{ height: "150px", width: "100%", objectFit: "contain" }}
+      />
+      <div className="card-body text-center">
+        <h5 className="card-title">Magic: The Gathering</h5>
+      </div>
+    </Link>
+  </div>
+
+  {/* Yu-Gi-Oh! */}
+  <div
+    className="card bg-dark text-white border-0 mx-3"
+    style={{ cursor: "pointer", width: "200px" }}
+  >
+    <Link
+      to="/yugioh"
+      className="text-decoration-none text-white"
+    >
+      <img
+        src="https://www.konami.com/crossmedia/assets/images/products/Yugioh_logo.png"
+        alt="Yu-Gi-Oh!"
+        className="card-img-top mt-3"
+        style={{ height: "150px", width: "100%", objectFit: "contain" }}
+      />
+      <div className="card-body text-center">
+        <h5 className="card-title">Yu-Gi-Oh!</h5>
+      </div>
+    </Link>
+  </div>
+</div>
+
       </div>
 
       {/* Featured Cards section */}
