@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const PokemonPage = () => {
   const [cards, setCards] = useState([]);
   const [quantities, setQuantities] = useState({});
-  const [hoveredCard, setHoveredCard] = useState(null); // Stato per l'hover
+  const [hoveredCard, setHoveredCard] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,7 +20,6 @@ const PokemonPage = () => {
         console.error("Errore nel recupero delle carte Pokémon:", error);
       }
     };
-  
     fetchCards();
   }, []);
 
@@ -33,60 +32,62 @@ const PokemonPage = () => {
     dispatch(addToCart({ ...card, quantity }));
   };
 
-  // Gestione dell'hover
-  const handleMouseEnter = (id) => {
-    setHoveredCard(id);
-  };
-
-  const handleMouseLeave = () => {
-    setHoveredCard(null);
-  };
+  const handleMouseEnter = (id) => setHoveredCard(id);
+  const handleMouseLeave = () => setHoveredCard(null);
 
   return (
     <div className="container py-5">
-      <h2 className="text-center mb-5 fw-bold text-white">Pokémon Cards</h2>
-      <div className="row justify-content-center">
+      <h2 className="text-center mb-5 fw-bold text-warning display-4">✨ Pokémon Cards</h2>
+      <div className="row justify-content-center g-4">
         {cards.length > 0 ? (
           cards.map((card) => (
-            <div
-              key={card.id}
-              className="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 d-flex justify-content-center mb-4"
-            >
-              <div className="card border-0 bg-dark text-white" style={{ width: "100%", maxWidth: "300px" }}>
-                <Link to={`/card/${card.id}`}>
+            <div key={card.id} className="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+              <div
+                className="bg-dark text-white rounded-4 shadow-lg overflow-hidden"
+                style={{ width: "100%", maxWidth: "300px" }}
+              >
+                <Link to={`/card/${card.id}`} className="text-decoration-none">
                   <div
+                    onMouseEnter={() => handleMouseEnter(card.id)}
+                    onMouseLeave={handleMouseLeave}
                     style={{
-                      height: "350px",
+                      height: "320px",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      backgroundColor: "#212529",
-                      borderRadius: "10px",
-                      padding: "15px",
+                      backgroundColor: "#1e1e1e",
+                      transition: "transform 0.3s ease",
+                      transform: hoveredCard === card.id ? "scale(1.03)" : "scale(1)",
+                      padding: "12px",
                     }}
                   >
                     <img
-                      src={card.imageUrl}
-                      alt={card.name}
-                      className="card-img-top"
-                      style={{
-                        height: "100%",
-                        width: "100%",
-                        objectFit: "contain",
-                        transition: "transform 0.3s ease", // Transizione per l'effetto
-                        transform: hoveredCard === card.id ? "scale(1.1)" : "scale(1)", // Ingrandisce se hover
-                      }}
-                      onMouseEnter={() => handleMouseEnter(card.id)} // Mouse sopra
-                      onMouseLeave={handleMouseLeave} // Mouse fuori
-                    />
+  src={card.imageUrl}
+  alt={card.name}
+  style={{
+    maxHeight: "100%",
+    maxWidth: "100%",
+    objectFit: "contain",
+    borderRadius: "12px",
+    transition: "transform 0.3s ease, box-shadow 0.3s ease",
+    transform: hoveredCard === card.id ? "scale(1.1)" : "scale(1)",
+    boxShadow:
+      hoveredCard === card.id
+        ? "0 0 20px 5px rgba(255, 215, 0, 0.5)" // Ombra gialla dorata in hover
+        : "none",
+  }}
+  onMouseEnter={() => handleMouseEnter(card.id)}
+  onMouseLeave={handleMouseLeave}
+/>
                   </div>
                 </Link>
-                <div className="card-body text-center">
+
+                <div className="card-body text-center px-3 pb-4">
                   <h5 className="card-title text-info fw-bold">{card.name}</h5>
-                  <p className="card-text fw-bold">
-                    {card.expansion} - €{card.price}
+                  <p className="text-danger fw-semibold mb-3">
+                    {card.expansion} <br /> €{card.price}
                   </p>
-                  <div className="d-flex justify-content-center align-items-center gap-2 mt-3">
+                  <div className="d-flex justify-content-center align-items-center gap-2">
                     <input
                       type="number"
                       min="1"
@@ -95,13 +96,13 @@ const PokemonPage = () => {
                       style={{
                         width: "60px",
                         textAlign: "center",
-                        borderRadius: "15px",
+                        borderRadius: "12px",
                       }}
                       onChange={(e) => handleQuantityChange(e, card.id)}
                     />
                     <button
-                      className="btn btn-warning rounded-0 fw-bold d-flex align-items-center justify-content-center"
-                      style={{ width: "50px", height: "40px" }}
+                      className="btn btn-warning rounded-pill fw-bold d-flex align-items-center justify-content-center"
+                      style={{ width: "45px", height: "40px" }}
                       onClick={() => handleAddToCart(card)}
                     >
                       <FaShoppingCart />
@@ -114,18 +115,23 @@ const PokemonPage = () => {
         ) : (
           <p className="text-white text-center">No Pokémon cards available.</p>
         )}
-         <a href="/cards" className="btn btn-link mt-4 text-decoration-none  text-white fw-bold">
+
+        <div className="text-center mt-4">
+          <Link to="/cards" className="btn btn-link text-white fw-bold text-decoration-none">
             ← Back To Cards Collection
-          </a>
-          <a href="/" className="btn btn-link mt-4 text-decoration-none  text-white fw-bold">
+          </Link>
+          <br />
+          <Link to="/" className="btn btn-link text-white fw-bold text-decoration-none">
             ← Back Home
-          </a>
+          </Link>
+        </div>
       </div>
     </div>
   );
 };
 
 export default PokemonPage;
+
 
 
 

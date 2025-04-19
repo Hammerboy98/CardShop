@@ -197,8 +197,8 @@ const AdminDashboard = () => {
 
   return (
     <div style={styles.container}>
-      <h1 className='text-center'>Admin Dashboard</h1>
-      <h2 className='text-center'>Manage Cards</h2>
+      <h1 className='text-center'>😎Admin Dashboard</h1>
+      
 
       {/* Form di aggiunta carta */}
       <h3 className='text-center'>Add New Card</h3>
@@ -267,7 +267,7 @@ const AdminDashboard = () => {
       {error && <p style={styles.text}>{error}</p>}
 
       {/* Elenco delle carte */}
-      <h3>Existing Cards</h3>
+      <h3 className='mt-3'>Existing Cards</h3>
       <div style={styles.cardContainer}>
         {cards.length === 0 ? (
           <p style={styles.text}>No cards available.</p>

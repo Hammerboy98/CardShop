@@ -8,79 +8,88 @@ import { Link } from "react-router-dom";
 const MagicPage = () => {
   const [cards, setCards] = useState([]);
   const [quantities, setQuantities] = useState({});
-  const [hoveredCard, setHoveredCard] = useState(null); // Stato per il mouse hover
+  const [hoveredCard, setHoveredCard] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
-      const fetchCards = async () => {
-        try {
-          const data = await getCardsByCategory("Magic");
-          setCards(data);
-        } catch (error) {
-          console.error("Errore nel recupero delle carte Pokémon:", error);
-        }
-      };
-    
-      fetchCards();
-    }, []);
+    const fetchCards = async () => {
+      try {
+        const data = await getCardsByCategory("Magic");
+        setCards(data);
+      } catch (error) {
+        console.error("Errore nel recupero delle carte Magic:", error);
+      }
+    };
+    fetchCards();
+  }, []);
 
   const handleQuantityChange = (e, cardId) => {
-    const updatedQuantities = { ...quantities, [cardId]: e.target.value };
-    setQuantities(updatedQuantities);
+    setQuantities({ ...quantities, [cardId]: e.target.value });
   };
 
   const handleAddToCart = (card) => {
-    const quantity = quantities[card.id] || 1; // Prende la quantità specificata, altrimenti 1
-    const cardWithQuantity = { ...card, quantity };
-    dispatch(addToCart(cardWithQuantity)); // Aggiungi la carta al carrello con la quantità
+    const quantity = quantities[card.id] || 1;
+    dispatch(addToCart({ ...card, quantity }));
   };
 
-  // Funzione per gestire l'hover dell'immagine
-  const handleMouseEnter = (id) => {
-    setHoveredCard(id); // Memorizza l'id della carta per cui è stato attivato l'hover
-  };
-
-  const handleMouseLeave = () => {
-    setHoveredCard(null); // Rimuove l'id quando il mouse esce
-  };
+  const handleMouseEnter = (id) => setHoveredCard(id);
+  const handleMouseLeave = () => setHoveredCard(null);
 
   return (
     <div className="container py-5">
-      <h2 className="text-center mb-5 fw-bold text-white">Magic: The Gathering Cards</h2>
-      <div className="row justify-content-center">
+      <h2 className="text-center mb-5 fw-bold text-warning display-4">
+        🧙‍♂️ Magic: The Gathering
+      </h2>
+      <div className="row justify-content-center g-4">
         {cards.length > 0 ? (
           cards.map((card) => (
             <div
               key={card.id}
-              className="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 d-flex justify-content-center mb-4"
+              className="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center"
             >
-              <div className="card border-0 bg-dark text-white" style={{ width: "100%", maxWidth: "300px" }}>
-                <Link to={`/card/${card.id}`}>
-                  <img
-                    src={card.imageUrl}
-                    alt={card.name}
-                    className="card-img-top"
-                    // Aggiungi lo stile inline per l'effetto hover
+              <div
+                className="bg-dark text-white rounded-4 shadow-lg overflow-hidden"
+                style={{ width: "100%", maxWidth: "300px" }}
+              >
+                <Link to={`/card/${card.id}`} className="text-decoration-none">
+                  <div
+                    onMouseEnter={() => handleMouseEnter(card.id)}
+                    onMouseLeave={handleMouseLeave}
                     style={{
-                      height: "350px",
-                      width: "100%",
-                      objectFit: "contain",
-                      backgroundColor: "#212529",
-                      padding: "15px",
-                      borderRadius: "56px",
-                      transition: "transform 0.3s ease", // Effetto di transizione
-                      transform: hoveredCard === card.id ? "scale(1.1)" : "scale(1)", // Applica l'ingrandimento solo se il mouse è sopra
+                      height: "320px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      backgroundColor: "#1e1e1e",
+                      transition: "transform 0.3s ease",
+                      transform: hoveredCard === card.id ? "scale(1.03)" : "scale(1)",
+                      padding: "12px",
                     }}
-                    onMouseEnter={() => handleMouseEnter(card.id)} // Attiva l'hover
-                    onMouseLeave={handleMouseLeave} // Rimuove l'hover
-                  />
+                  >
+                    <img
+                      src={card.imageUrl}
+                      alt={card.name}
+                      style={{
+                        maxHeight: "100%",
+                        maxWidth: "100%",
+                        objectFit: "contain",
+                        borderRadius: "16px",
+                        transition: "transform 0.3s ease",
+                        transform: hoveredCard === card.id ? "scale(1.1)" : "scale(1)",
+                        boxShadow:
+                          hoveredCard === card.id
+                            ? "0 0 15px 5px rgba(255, 255, 255, 0.2)"
+                            : "none",
+                      }}
+                    />
+                  </div>
                 </Link>
-                <div className="card-body text-center">
+                <div className="card-body text-center px-3 pb-4">
                   <h5 className="card-title text-info fw-bold">{card.name}</h5>
-                  <p className="card-text fw-bold">
-                    {card.expansion} - €{card.price}
+                  <p className="text-danger fw-semibold mb-3">
+                    {card.expansion} <br /> €{card.price}
                   </p>
-                  <div className="d-flex justify-content-center align-items-center gap-2 mt-3">
+                  <div className="d-flex justify-content-center align-items-center gap-2">
                     <input
                       type="number"
                       min="1"
@@ -89,13 +98,13 @@ const MagicPage = () => {
                       style={{
                         width: "60px",
                         textAlign: "center",
-                        borderRadius: "5px",
+                        borderRadius: "12px",
                       }}
                       onChange={(e) => handleQuantityChange(e, card.id)}
                     />
                     <button
-                      className="btn btn-warning rounded-0 fw-bold d-flex align-items-center justify-content-center"
-                      style={{ width: "50px", height: "40px" }}
+                      className="btn btn-warning rounded-pill fw-bold d-flex align-items-center justify-content-center"
+                      style={{ width: "45px", height: "40px" }}
                       onClick={() => handleAddToCart(card)}
                     >
                       <FaShoppingCart />
@@ -108,20 +117,29 @@ const MagicPage = () => {
         ) : (
           <p className="text-white text-center">No Magic cards available.</p>
         )}
-        <a href="/cards" className="btn btn-link mt-4 text-decoration-none text-white fw-bold">
+
+        <div className="text-center mt-4">
+          <Link
+            to="/cards"
+            className="btn btn-link text-white fw-bold text-decoration-none"
+          >
             ← Back To Cards Collection
-          </a>
-          <a href="/" className="btn btn-link mt-4 text-decoration-none text-white fw-bold">
+          </Link>
+          <br />
+          <Link
+            to="/"
+            className="btn btn-link text-white fw-bold text-decoration-none"
+          >
             ← Back Home
-          </a>
+          </Link>
+        </div>
       </div>
-      
     </div>
-    
   );
 };
 
 export default MagicPage;
+
 
 
 
