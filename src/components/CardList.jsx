@@ -119,10 +119,10 @@ const CardList = () => {
                   onChange={(e) => handleQuantityChange(e, card)}
                 />
                 <button
-                  className="btn btn-warning rounded-0 p-1 fw-bold"
+                  className="btn btn-warning rounded-4 p-1 fw-bold"
                   style={{
-                    width: '55px',
-                    height: '50px',
+                    width: '45px',
+                    height: '40px',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
