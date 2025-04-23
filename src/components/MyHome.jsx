@@ -96,7 +96,7 @@ const MyHome = () => {
               <img
                 src="https://www.konami.com/crossmedia/assets/images/products/Yugioh_logo.png"
                 alt="Yu-Gi-Oh!"
-                className="card-img-top mt-3"
+                className="card-img-top mt-0"
                 style={styles.cardImage}
               />
               <div className="card-body text-center">

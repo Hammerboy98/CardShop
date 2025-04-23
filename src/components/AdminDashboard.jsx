@@ -21,7 +21,7 @@ const AdminDashboard = () => {
     }
 
     try {
-      const response = await fetch('https://localhost:7140/api/cards', {
+      const response = await fetch('https://localhost:7140/api/card', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -52,7 +52,7 @@ const AdminDashboard = () => {
     }
 
     try {
-      const response = await fetch(`https://localhost:7140/api/cards/${id}`, {
+      const response = await fetch(`https://localhost:7140/api/card/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -81,7 +81,7 @@ const AdminDashboard = () => {
     }
 
     try {
-      const response = await fetch('https://localhost:7140/api/cards', {
+      const response = await fetch('https://localhost:7140/api/card', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -116,7 +116,7 @@ const AdminDashboard = () => {
     }
 
     try {
-      const response = await fetch(`https://localhost:7140/api/cards/${currentCard.id}`, {
+      const response = await fetch(`https://localhost:7140/api/card/${currentCard.id}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
