@@ -62,7 +62,7 @@ const CardList = () => {
 
   return (
     <div style={{ padding: '30px' }}>
-      <h2 className="mx-4 text-center fw-bold text-white">Our Products</h2>
+      <h2 className="mx-4 text-center fw-bold text-warning">🔍Our Products</h2>
       <div className="container d-flex flex-wrap justify-content-center gap-4">
         {cards.length > 0 ? (
           cards.map((card) => (

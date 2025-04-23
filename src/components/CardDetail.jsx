@@ -48,7 +48,7 @@ const CardDetail = () => {
         <div className="col-md-6 text-center">
           <div
             style={{
-              backgroundColor: "#212529",
+              backgroundColor: "black",
               borderRadius: "10px",
               padding: "15px",
               transition: "transform 0.3s ease",
@@ -76,7 +76,7 @@ const CardDetail = () => {
         {/* Right column: quantity and cart */}
         <div className="col-md-6 d-flex flex-column justify-content-start align-items-center">
           <div className="bg-dark p-4 rounded shadow-lg w-100 text-center">
-            <h4 className="fw-bold mb-3">Buy now safely!</h4>
+            <h4 className="fw-bold mb-3 text-info">Buy now safely!</h4>
             <p className="text-muted">Payment available with:</p>
             <div className="fs-1 text-warning mb-4">
               <FaCcVisa className="me-3" />

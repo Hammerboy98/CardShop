@@ -386,7 +386,7 @@ const AdminDashboard = () => {
 const styles = {
   container: {
     padding: '20px',
-    backgroundColor: '#121212',
+    backgroundColor: 'black',
     color: '#fff',
     maxWidth: '1200px',
     margin: '0 auto',

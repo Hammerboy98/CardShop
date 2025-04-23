@@ -3,7 +3,7 @@ import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin, FaYoutube, FaShippingFa
 
 const MyFooter = () => {
   return (
-    <footer className="bg-gradient-to-r from-darkblue-500 to-black text-white mt-5 pt-5 pb-3">
+    <footer className="bg-gradient-to-r from-darkblue-500 to-black text-white mt-3 pt-5 pb-3">
       <div className="container">
         <div className="row text-center">
           {/* Colonna per i link ai social media */}

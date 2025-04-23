@@ -4,7 +4,7 @@ import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
 const ContactUs = () => {
   return (
     <div className="container my-5 d-flex flex-column align-items-center" style={styles.container}>
-      <h1 className="text-center text-white fw-bold" style={styles.header}>Contact Us</h1>
+      <h1 className="text-center text-danger fw-bold" style={styles.header}>Contact Us</h1>
       
       <div style={styles.card}>
         <p className="text-white" style={styles.text}>
@@ -46,7 +46,7 @@ const ContactUs = () => {
         </a>
       </div>
 
-      <div style={{ height: "170px" }}></div>
+      
 
      
     </div>
@@ -54,13 +54,7 @@ const ContactUs = () => {
 };
 
 const styles = {
-  container: {
-    backgroundImage: 'url("https://example.com/background-image.jpg")',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    minHeight: '100vh',
-    padding: '50px',
-  },
+  
   header: {
     fontSize: '3rem',
     textShadow: '2px 2px 5px rgba(0, 0, 0, 0.5)',

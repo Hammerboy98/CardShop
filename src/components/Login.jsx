@@ -64,7 +64,7 @@ const Login = () => {
       justifyContent: 'center',
       alignItems: 'center',
       height: '100vh',
-      backgroundColor: '#212529',
+      backgroundColor: 'black',
       margin: 0,
       padding: 0,
     },

@@ -48,7 +48,7 @@ const MyHome = () => {
   return (
     <div>
       {/* Hero Section */}
-      <div className="text-white text-center p-5 bg-dark" style={styles.heroSection}>
+      <div className="text-white text-center p-5 bg-black" style={styles.heroSection}>
         <h1 className="fw-bold" style={styles.heroTitle}>Welcome To CardShop</h1>
         <p className="fw-bolder" style={styles.heroText}>
           Your ultimate destination for collectible trading cards! Whether you're a seasoned collector or just getting started, you'll find a wide variety of cards from all your favorite expansions. Browse, discover, and build your dream collection—right here.
@@ -58,10 +58,10 @@ const MyHome = () => {
 
       {/* Filter by Expansion Section */}
       <div className="container mt-5 text-center">
-        <h2 className="text-white mb-4 fw-bold">Filter By Expansion</h2>
+        <h2 className="text-info mb-4 fw-bold">Filter By Expansion</h2>
         <div className="d-flex justify-content-center gap-3">
           {/* Pokémon */}
-          <div className="card bg-dark text-white border-0 mx-3" style={styles.card} onMouseEnter={() => handleMouseEnter('pokemon')} onMouseLeave={handleMouseLeave}>
+          <div className="card bg-black text-white border-0 mx-3" style={styles.card} onMouseEnter={() => handleMouseEnter('pokemon')} onMouseLeave={handleMouseLeave}>
             <Link to="/pokemon" className="text-decoration-none text-white">
               <img
                 src="https://clazo-pokemon.netlify.app/static/media/portadapokemon.5b8a5f11.png"
@@ -76,7 +76,7 @@ const MyHome = () => {
           </div>
 
           {/* Magic */}
-          <div className="card bg-dark text-white border-0 mx-3" style={styles.card} onMouseEnter={() => handleMouseEnter('magic')} onMouseLeave={handleMouseLeave}>
+          <div className="card bg-black text-white border-0 mx-3" style={styles.card} onMouseEnter={() => handleMouseEnter('magic')} onMouseLeave={handleMouseLeave}>
             <Link to="/magic" className="text-decoration-none text-white">
               <img
                 src="https://carrettodicarta.it/wp-content/uploads/2024/07/Magic-The-Gathering-Logo.png"
@@ -91,7 +91,7 @@ const MyHome = () => {
           </div>
 
           {/* Yu-Gi-Oh! */}
-          <div className="card bg-dark text-white border-0 mx-3" style={styles.card} onMouseEnter={() => handleMouseEnter('yugioh')} onMouseLeave={handleMouseLeave}>
+          <div className="card bg-black text-white border-0 mx-3" style={styles.card} onMouseEnter={() => handleMouseEnter('yugioh')} onMouseLeave={handleMouseLeave}>
             <Link to="/yugioh" className="text-decoration-none text-white">
               <img
                 src="https://www.konami.com/crossmedia/assets/images/products/Yugioh_logo.png"
@@ -108,14 +108,14 @@ const MyHome = () => {
       </div>
 
       {/* Featured Cards Section */}
-      <div className="container mt-5 bg-dark ps-xl-1">
-        <h2 className="text-center mb-4 fw-bold text-white">Featured Cards</h2>
-        <div className="row justify-content-center g-4">
+      <div className="container mt-5 bg-black ps-xl-1">
+        <h2 className="text-center mb-4 fw-bold text-danger">Featured Cards</h2>
+        <div className="row justify-content-center  g-4">
           {cards.map((card) => (
-            <div key={card.id} className="col-12 col-sm-10 col-md-6 col-lg-4 col-xl-3 d-flex justify-content-center">
-              <div className="card border-0 bg-dark" style={styles.cardWrapper}>
+            <div key={card.id} className="col-12 col-sm-10 col-md-6 col-lg-4 col-xl-3 d-flex justify-content-center ">
+              <div className="card border-0 bg-black" style={styles.cardWrapper}>
                 <Link to={`/card/${card.id}`}>
-                  <div className="card-img-container" style={styles.cardImageWrapper}>
+                  <div className="card-img-container bg-black" style={styles.cardImageWrapper}>
                     <img
                       src={card.imageUrl}
                       alt={card.name}
@@ -159,6 +159,7 @@ const styles = {
     padding: '80px 0',
   },
   heroTitle: {
+    color:'red',
     fontSize: '3.5rem',
     textShadow: '2px 2px 8px rgba(0, 0, 0, 0.5)',
   },

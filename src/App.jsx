@@ -36,7 +36,7 @@ function App() {
   return (
     <Router>
       <MyNavbar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setUserRole={setUserRole} /> {/* Navbar visibile su tutte le pagine */}
-      <div className="bg-dark">
+      <div className="bg-black">
         {/* Le Routes renderizzeranno i componenti in base alla route */}
         <Routes>
           <Route path="/" element={<MyHome />} /> {/* Home */}

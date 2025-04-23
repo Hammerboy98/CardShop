@@ -3,16 +3,10 @@ import React from "react";
 const AboutUs = () => {
   return (
     <div
-      className="container my-5 d-flex flex-column align-items-center"
-      style={{
-        backgroundImage: 'url("https://example.com/background-image.jpg")',
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        minHeight: "100vh",
-        padding: "50px",
-      }}
+      className="container my-5 d-flex flex-column align-items-center bg-black"
+      
     >
-      <h1 className="text-center text-white fw-bold" style={styles.header}>
+      <h1 className="text-center text-danger fw-bold" style={styles.header}>
         About Us
       </h1>
 
@@ -34,6 +28,14 @@ const AboutUs = () => {
           Thank you for visiting CardShop, and we hope you enjoy your experience
           with us!
         </p>
+      </div>
+      <div style={styles.buttonContainer}>
+        <a href="/cards" className="btn btn-link mt-4 text-decoration-none text-white fw-bold">
+          ← Back To Collection
+        </a>
+        <a href="/" className="btn btn-link mt-4 text-decoration-none text-white fw-bold">
+          ← Back Home
+        </a>
       </div>
     </div>
   );
