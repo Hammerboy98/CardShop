@@ -1,75 +1,99 @@
-🃏 CardShop - Collect. Buy.
+🃏 CardShop - Collect & Buy Your Favorite Cards
 
-Welcome to CardShop, your trusted e-commerce platform for collectible cards!
-Here you can explore, search, filter, purchase, and manage your collection of Pokémon, Magic: The Gathering, and Yu-Gi-Oh! cards.
-✨ Main Features
-🛍️ Explore and Purchase
+Welcome to CardShop, your ultimate destination for collectible trading cards.
+Explore, filter, purchase, and manage your collection of Pokémon, Magic: The Gathering, and Yu-Gi-Oh! cards — all in one platform.
+✨ Key Features
 
-    Browse all available cards in the Cards section.
+🛍️ Explore & Purchase
 
-    Filter by name and expansion.
+    Browse the complete catalog of available cards.
 
-    View all details: name, expansion, rarity, price, and category.
+    Filter by name or expansion.
 
-🔍 Filter by Expansion
+    Access detailed information: name, expansion, rarity, price, and category.
 
-    Quickly filter from the homepage by:
+🔍 Instant Filters
 
-        Pokémon
+    Quickly filter cards by expansion: Pokémon, Magic: The Gathering, or Yu-Gi-Oh!.
 
-        Magic: The Gathering
+🖼️ Card Details
 
-        Yu-Gi-Oh!
+    View full card information on a dedicated page.
 
-🖼️ View Details
+🛒 Cart Management
 
-    Click on any card to see its dedicated detail page.
+    Set quantities and add to cart seamlessly with Redux-based state management.
 
-🛒 Add to Cart
+🔐 Secure Authentication
 
-    Set the desired quantity.
-
-    Add to cart easily by clicking the 🛒 icon.
-
-    Cart management fully integrated with Redux.
-
-🔐 Authentication
-
-    Secure login with JWT Token to protect routes and sensitive operations.
+    JWT-based authentication to protect user data and restricted operations.
 
 🔄 Easy Navigation
 
-    Quickly return to the homepage or full collection with convenient links.
+    Return to the homepage or full card collection anytime with intuitive navigation links.
 
-⚙️ Technologies Used
-🧠 Frontend
+⚙️ Technology Stack
 
-    React – Main library for building the user interface.
+Frontend:
 
-    React Router – Handles navigation between pages.
+    React (UI Framework)
 
-    Redux Toolkit – Manages global state efficiently.
+    React Router (Routing and navigation)
 
-    Bootstrap 5 – Responsive design and ready-to-use components.
+    Redux Toolkit (State management)
 
-    React Icons – Sleek and customizable icons.
+    Bootstrap 5 (Responsive styling)
 
-    Inline CSS – Custom styles directly within React components.
+    React Icons (Icon components)
 
-💾 Backend
+    Inline CSS for custom styling
 
-    ASP.NET Core Web API (C#) – Robust and scalable backend API.
+Backend:
 
-    SQL Server – Relational database for cards and users.
+    ASP.NET Core Web API (C#)
 
-    JWT (JSON Web Token) – Secure authentication.
+    SQL Server (Database for cards and users)
 
-🚀 How to Run the Project
-🧬 1. Clone the Repository
+    JWT (Secure token authentication)
 
-Open your terminal and type:
+🚀 Getting Started
 
-git clone https://github.com/Hammerboy98/cardshop.git
-cd cardshop
+Follow these steps to run CardShop on your local machine:
 
-Link for the Back-End: https://github.com/Hammerboy98/CardShop-BE
+    Clone the repository:
+    Run the following commands in your terminal:
+    git clone https://github.com/Hammerboy98/cardshop.git
+    cd cardshop
+
+    Install frontend dependencies:
+    Run:
+    npm install
+
+    Start the frontend application:
+    Run:
+    npm start
+
+    Set up and run the backend:
+    Clone the backend repository:
+    git clone https://github.com/Hammerboy98/CardShop-BE.git
+    Follow the setup instructions provided in the backend README to configure and run the ASP.NET Core Web API.
+
+    Database setup:
+
+        Ensure you have SQL Server running.
+
+        Apply migrations or import the provided database schema if available.
+
+    Environment configuration:
+    Configure the API base URL and JWT settings as required in your frontend .env file.
+
+📚 About CardShop
+
+CardShop is crafted for true card collectors.
+Our mission is to provide a fast, secure, and seamless experience for finding and managing collectible cards across multiple universes.
+🤝 Contributions
+
+We welcome contributions!
+Feel free to open an issue, suggest improvements, or submit a pull request.
+
+Thank you for visiting CardShop! 🃏🚀
