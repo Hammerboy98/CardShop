@@ -60,3 +60,5 @@ Apri il terminale e digita:
 ```bash
 git clone https://github.com/Hammerboy98/cardshop.git
 cd cardshop
+
+Link Back-End ettore-ciammellas-projects/card-shop-be
